@@ -1,0 +1,8 @@
+configuration:
+  swagger:
+    app: 'Recipe Sharing App'
+    description: 'A simple recipe sharing app built with Spring Boot'
+    developer: 'Arnela Ombaša'
+    email: 'arnela.ombasa@ibu.edu.ba'
+  mailsender:
+    default: 'sendgrid'
