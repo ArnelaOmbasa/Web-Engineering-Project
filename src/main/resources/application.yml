@@ -6,3 +6,9 @@ configuration:
     email: 'arnela.ombasa@ibu.edu.ba'
   mailsender:
     default: 'sendgrid'
+  spring:
+    data:
+      mongodb:
+        host: localhost
+        port: 27017
+        database: food
