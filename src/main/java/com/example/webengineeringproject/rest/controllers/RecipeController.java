@@ -2,31 +2,57 @@ package com.example.webengineeringproject.rest.controllers;
 
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.service.RecipeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.webengineeringproject.rest.dto.RecipeDTO;
+import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/recipes")
+@RequestMapping("/recipes")
 public class RecipeController {
 
-    private final RecipeService recipeService;
+    @Autowired
+    private RecipeService recipeService;
 
-    public RecipeController(RecipeService recipeService) {
-        this.recipeService = recipeService;
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
+        RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO);
+        return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public List<Recipe> getAllRecipes() {
-        return recipeService.getAllRecipes();
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
+        List<RecipeDTO> recipes = recipeService.getAllRecipes();
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public Recipe getRecipeById(@PathVariable int id) {
-        // Note: Consider exception handling for not found scenarios.
-        return recipeService.getRecipeById(id).orElse(null);
+    @RequestMapping(value = "/{recipeId}", method = RequestMethod.GET)
+    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable String recipeId) {
+        RecipeDTO recipe = recipeService.getRecipeById(recipeId);
+        if (recipe != null) {
+            return new ResponseEntity<>(recipe, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/{recipeId}", method = RequestMethod.PUT)
+    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable String recipeId, @RequestBody RecipeRequestDTO recipeRequestDTO) {
+        RecipeDTO updatedRecipe = recipeService.updateRecipe(recipeId, recipeRequestDTO);
+        if (updatedRecipe != null) {
+            return new ResponseEntity<>(updatedRecipe, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/{recipeId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId) {
+        recipeService.deleteRecipe(recipeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

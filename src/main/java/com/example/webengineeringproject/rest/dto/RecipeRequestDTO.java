@@ -1,37 +1,30 @@
-package com.example.webengineeringproject.core.model;
+package com.example.webengineeringproject.rest.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.example.webengineeringproject.core.model.Recipe;
 
 import java.util.List;
-@Document
-public class Recipe {
-    @Id
-    private String recipeId;
+
+public class RecipeRequestDTO {
     private String title;
     private String description;
     private List<String> ingredients;
     private String imageURL;
-    private String author;
-    private List<String> comments;
 
-    public Recipe() {
-        this.recipeId = recipeId;
+    public RecipeRequestDTO(String title, String description, List<String> ingredients, String imageURL) {
         this.title = title;
         this.description = description;
         this.ingredients = ingredients;
         this.imageURL = imageURL;
-        this.comments = comments;
     }
+    public Recipe toEntity() {
+        Recipe recipe = new Recipe();
+        recipe.setTitle(this.title);
+        recipe.setDescription(this.description);
+        recipe.setIngredients(this.ingredients);
+        recipe.setImageURL(this.imageURL);
 
-    public String getRecipeId() {
-        return recipeId;
+        return recipe;
     }
-
-    public void setRecipeId(String recipeId) {
-        this.recipeId = recipeId;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -62,14 +55,5 @@ public class Recipe {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
-    }
-
-
-    public List<String> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<String> comments) {
-        this.comments = comments;
     }
 }
