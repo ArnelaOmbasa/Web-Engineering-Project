@@ -1,14 +1,15 @@
 configuration:
-  swagger:
-    app: 'Recipe Sharing App'
-    description: 'A simple recipe sharing app built with Spring Boot'
-    developer: 'Arnela Ombaša'
-    email: 'arnela.ombasa@ibu.edu.ba'
-  mailsender:
-    default: 'sendgrid'
   spring:
     data:
       mongodb:
         host: localhost
         port: 27017
         database: food
+  swagger:
+    app: 'Recipe Sharing App'
+    description: 'A simple recipe sharing app built with Spring Boot'
+    developer: 'Arnela Ombasa'
+    email: 'arnela.ombasa@ibu.edu.ba'
+  mailsender:
+    default: 'sendgrid'
+
