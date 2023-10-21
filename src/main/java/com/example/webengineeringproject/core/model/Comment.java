@@ -1,48 +1,53 @@
 package com.example.webengineeringproject.core.model;
 
-public class Comment {
-    private int commentId;
-    private String content;
-    private int userId;
-    private int recipeId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    public Comment(int commentId,String content, int userId, int recipeId) {
+@Document
+public class Comment {
+    @Id
+        private String commentId;
+        private String text;
+        private String authorId;
+        private String recipeId;
+
+    public Comment() {
+
         this.commentId = commentId;
-        this.content = content;
-        this.userId = userId;
+        this.text = text;
+        this.authorId = authorId;
         this.recipeId = recipeId;
     }
 
-    // Getters and setters
-    public int getCommentId() {
+    public String getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
-    public String getContent() {
-        return content;
+    public String getText() {
+        return text;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getAuthor() {
+        return authorId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAuthor(String author) {
+        this.authorId = author;
     }
 
-    public int getRecipeId() {
+    public String getRecipe() {
         return recipeId;
     }
 
-    public void setRecipeId(int recipeId) {
+    public void setRecipe(String recipeId) {
         this.recipeId = recipeId;
     }
 }

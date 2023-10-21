@@ -1,7 +1,10 @@
 package com.example.webengineeringproject.rest.controllers;
 
 import com.example.webengineeringproject.core.model.Recipe;
+import com.example.webengineeringproject.core.service.CommentService;
 import com.example.webengineeringproject.core.service.RecipeService;
+import com.example.webengineeringproject.rest.dto.CommentDTO;
+import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,11 @@ public class RecipeController {
 
     @Autowired
     private RecipeService recipeService;
+    private final CommentService commentService;
+    public RecipeController(RecipeService recipeService, CommentService commentService) {
+        this.recipeService = recipeService;
+        this.commentService = commentService;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
@@ -55,4 +63,7 @@ public class RecipeController {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+
 }

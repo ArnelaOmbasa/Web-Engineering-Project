@@ -1,30 +1,22 @@
 package com.example.webengineeringproject.core.repository;
 
 import com.example.webengineeringproject.core.model.Comment;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+
 @Repository
-public class CommentRepository {
-    private List<Comment> comments;
+public interface CommentRepository extends MongoRepository<Comment,String> {
+    @Query("{ 'recipe.id' : ?0 }")
+    List<Comment> findByRecipeId(String recipeId);
 
-    public CommentRepository() {
-        this.comments = Arrays.asList(
-                new Comment(1,"Great recipe!", 1, 1),
-                new Comment(2,"Thanks for sharing!", 2, 1)
-        );
-    }
 
-    public List<Comment> findAll() {
-        return comments;
-    }
 
-    public Optional<Comment> findById(int id) {
-        return comments.stream()
-                .filter(comment -> comment.getCommentId() == id)
-                .findFirst();
-    }
+    // Custom query to find a comment by ID and Recipe ID for deletion
+    @Query("{ 'commentId' : ?0, 'recipeId' : ?1 }")
+    Optional<Comment> findByIdAndRecipeId(String commentId, String recipeId);
 }

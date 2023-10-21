@@ -16,7 +16,7 @@ public class Recipe {
     private List<String> comments;
 
     public Recipe() {
-        this.recipeId = recipeId;
+        this.recipeId = this.recipeId;
         this.title = title;
         this.description = description;
         this.ingredients = ingredients;
