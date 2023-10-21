@@ -3,6 +3,7 @@ package com.example.webengineeringproject.core.service;
 import com.example.webengineeringproject.core.exceptions.repository.ResourceNotFoundException;
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.repository.RecipeRepository;
+import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,7 @@ public class RecipeService {
         Optional<Recipe> recipe = recipeRepository.findById(recipeId);
         recipe.ifPresent(recipeRepository::delete);
     }
+
+
 }
 

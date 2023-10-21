@@ -1,7 +1,10 @@
 package com.example.webengineeringproject.rest.controllers;
 
 import com.example.webengineeringproject.core.model.Recipe;
+import com.example.webengineeringproject.core.service.CommentService;
 import com.example.webengineeringproject.core.service.RecipeService;
+import com.example.webengineeringproject.rest.dto.CommentDTO;
+import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,11 @@ public class RecipeController {
 
     @Autowired
     private RecipeService recipeService;
+    private final CommentService commentService;
+    public RecipeController(RecipeService recipeService, CommentService commentService) {
+        this.recipeService = recipeService;
+        this.commentService = commentService;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
@@ -55,4 +63,30 @@ public class RecipeController {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+/*
+
+Will be used and updated later I need more logic here like authentication for getting userId in the response body, for now I have basic CRUD operations for comment collection
+
+    // Add a comment to a recipe
+    @RequestMapping(value = "/{recipeId}/comments", method = RequestMethod.POST)
+    public ResponseEntity<CommentDTO> addCommentToRecipe(@PathVariable String recipeId, @RequestBody CommentRequestDTO commentRequestDTO) {
+        CommentDTO commentDTO = commentService.createComment(commentRequestDTO.toEntity());
+        return ResponseEntity.ok(commentDTO);
+    }
+
+    // Get all comments for a recipe
+    @RequestMapping(value = "/{recipeId}/comments", method = RequestMethod.GET)
+    public ResponseEntity<List<CommentDTO>> getAllCommentsForRecipe(@PathVariable String recipeId) {
+        List<CommentDTO> comments = commentService.getCommentsForRecipe(recipeId);
+        return ResponseEntity.ok(comments);
+    }
+
+    // Delete a comment
+    @RequestMapping(value = "/{recipeId}/comments/{commentId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteComment(@PathVariable String recipeId, @PathVariable String commentId) {
+        commentService.deleteComment(commentId);
+        return ResponseEntity.noContent().build();
+    }*/
+
+
 }
