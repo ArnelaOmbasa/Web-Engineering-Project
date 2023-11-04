@@ -4,6 +4,8 @@ import com.example.webengineeringproject.core.model.Comment;
 import com.example.webengineeringproject.core.service.CommentService;
 import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
+import com.example.webengineeringproject.rest.dto.CommentsDTO;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +25,15 @@ public class CommentController {
 
     // Retrieve all comments
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<CommentDTO>> getAllComments() {
-        List<CommentDTO> comments = commentService.getAllComments();
+    public ResponseEntity<List<CommentsDTO>> getAllComments() {
+        List<CommentsDTO> comments = commentService.getAllComments();
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     // Retrieve a single comment by its ID
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<CommentDTO> getCommentById(@PathVariable String id) {
-        CommentDTO comment = commentService.getCommentById(id);
+    public ResponseEntity<CommentsDTO> getCommentById(@PathVariable String id) {
+        CommentsDTO comment = commentService.getCommentById(id);
         if (comment != null) {
             return new ResponseEntity<>(comment, HttpStatus.OK);
         } else {
@@ -40,8 +42,8 @@ public class CommentController {
     }
     // Update an existing comment
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<CommentDTO> updateComment(@PathVariable String id, @RequestBody Comment comment) {
-        CommentDTO updatedComment = commentService.updateComment(id, comment);
+    public ResponseEntity<CommentsDTO> updateComment(@PathVariable String id, @RequestBody Comment comment) {
+        CommentsDTO updatedComment = commentService.updateComment(id, comment);
         if (updatedComment != null) {
             return new ResponseEntity<>(updatedComment, HttpStatus.OK);
         } else {
@@ -58,8 +60,8 @@ public class CommentController {
 
     // Retrieve all comments for a specific recipe
     @RequestMapping(value = "/{recipeId}/comment", method = RequestMethod.GET)
-    public ResponseEntity<List<CommentDTO>> getCommentsByRecipeId(@PathVariable String recipeId) {
-        List<CommentDTO> comments = commentService.getCommentsForRecipe(recipeId);
+    public ResponseEntity<List<CommentsDTO>> getCommentsByRecipeId(@PathVariable String recipeId) {
+        List<CommentsDTO> comments = commentService.getCommentsForRecipe(recipeId);
         if (comments != null && !comments.isEmpty()) {
             return new ResponseEntity<>(comments, HttpStatus.OK);
         } else {
@@ -69,13 +71,13 @@ public class CommentController {
 
     // Add a comment to a recipe
     @RequestMapping(value = "/{recipeId}/comment", method = RequestMethod.POST)
-    public ResponseEntity<CommentDTO> addCommentToRecipe(
+    public ResponseEntity<CommentsDTO> addCommentToRecipe(
             @PathVariable String recipeId,
-            @RequestBody CommentRequestDTO commentRequestDTO) {
+            @RequestBody CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
         // Now you can access commentRequestDTO.getText() without errors
-        CommentDTO createdComment = commentService.addCommentToRecipe(recipeId, commentRequestDTO);
+        CommentsDTO addedComment = commentService.addCommentToRecipe(recipeId, commentRequestDTO);
 
-        return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
+        return new ResponseEntity<>(addedComment, HttpStatus.CREATED);
     }
 
 

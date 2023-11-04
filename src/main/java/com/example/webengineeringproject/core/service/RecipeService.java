@@ -1,12 +1,14 @@
 package com.example.webengineeringproject.core.service;
 
 import com.example.webengineeringproject.core.exceptions.repository.ResourceNotFoundException;
+import com.example.webengineeringproject.core.model.Comment;
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.repository.RecipeRepository;
 import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,6 +62,16 @@ public class RecipeService {
     public void deleteRecipe(String recipeId) {
         Optional<Recipe> recipe = recipeRepository.findById(recipeId);
         recipe.ifPresent(recipeRepository::delete);
+    }
+    public void addCommentToRecipe(String recipeId, Comment comment) throws ChangeSetPersister.NotFoundException {
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+
+        // Add the comment to the recipe's comments list
+        recipe.getComments().add(String.valueOf(comment));
+
+        // Update the recipe in the database
+        recipeRepository.save(recipe);
     }
 
 

@@ -1,8 +1,10 @@
 package com.example.webengineeringproject.core.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 @Document
 public class Recipe {
@@ -13,7 +15,9 @@ public class Recipe {
     private List<String> ingredients;
     private String imageURL;
     private String author;
-    private List<String> comments;
+
+    private List<String> comments = new ArrayList<String>();
+
 
     public Recipe() {
         this.recipeId = this.recipeId;

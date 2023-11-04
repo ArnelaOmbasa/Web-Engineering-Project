@@ -1,18 +1,13 @@
 package com.example.webengineeringproject.rest.dto;
 
-import com.example.webengineeringproject.core.model.Comment;
-
 public class CommentDTO {
     private String commentId;
     private String text;
     private String authorId;
     private String recipeId;
 
-    public CommentDTO(Comment comment) {
-        this.commentId = comment.getCommentId();
-        this.text = comment.getText();
-        this.authorId = comment.getAuthor();
-        this.recipeId = comment.getRecipe();
+    public CommentDTO(String comment) {
+        this.text = comment;
     }
     public String getCommentId() {
         return commentId;
