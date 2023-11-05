@@ -1,12 +1,18 @@
 package com.example.webengineeringproject.core.service;
 
+import com.example.webengineeringproject.core.exceptions.repository.ResourceNotFoundException;
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.repository.RecipeRepository;
+import com.example.webengineeringproject.rest.dto.CommentDTO;
+import com.example.webengineeringproject.rest.dto.RecipeDTO;
+import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class RecipeService {
@@ -18,12 +24,44 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public List<Recipe> getAllRecipes() {
-        return recipeRepository.findAll();
+    public List<RecipeDTO> getAllRecipes() {
+        List<Recipe> recipes = recipeRepository.findAll();
+
+        return recipes
+                .stream()
+                .map(RecipeDTO::new)
+                .collect(toList());
     }
 
-    public Optional<Recipe> getRecipeById(int id) {
-        return recipeRepository.findById(id);
+    public RecipeDTO getRecipeById(String recipeId) {
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+        if (recipe.isEmpty()) {
+            throw new ResourceNotFoundException("The recipe with the given ID does not exist.");
+        }
+        return new RecipeDTO(recipe.get());
     }
+
+    public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO) {
+        Recipe recipe = recipeRepository.save(recipeRequestDTO.toEntity());
+        return new RecipeDTO(recipe);
+    }
+
+    public RecipeDTO updateRecipe(String recipeId, RecipeRequestDTO recipeRequestDTO) {
+        Optional<Recipe> existingRecipe = recipeRepository.findById(recipeId);
+        if (existingRecipe.isEmpty()) {
+            throw new ResourceNotFoundException("The recipe with the given ID does not exist.");
+        }
+        Recipe updatedRecipe = recipeRequestDTO.toEntity();
+        updatedRecipe.setRecipeId(existingRecipe.get().getRecipeId());
+        updatedRecipe = recipeRepository.save(updatedRecipe);
+        return new RecipeDTO(updatedRecipe);
+    }
+
+    public void deleteRecipe(String recipeId) {
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+        recipe.ifPresent(recipeRepository::delete);
+    }
+
+
 }
 

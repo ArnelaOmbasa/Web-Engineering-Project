@@ -1,10 +1,16 @@
 package com.example.webengineeringproject.core.model;
 
+import com.example.webengineeringproject.core.model.enums.UserRole;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
+@Document
 
 public class User {
+    @Id
 
-    private int userId;
+    private String userId;
 
     private String username;
 
@@ -13,32 +19,21 @@ public class User {
     private String email;
 
 
-    private Role role;
+    private UserRole role;
 
     private List<Integer> recipes;
 
     private List<Integer> comments;
 
-    public enum Role {
-        USER,
-        ADMIN
-    }
 
-    public User(int userId, String username, String password, String email, Role role, List<Integer> recipes, List<Integer> comments) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.recipes = recipes;
-        this.comments = comments;
-    }
 
-    public int getUserId() {
+
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -66,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
