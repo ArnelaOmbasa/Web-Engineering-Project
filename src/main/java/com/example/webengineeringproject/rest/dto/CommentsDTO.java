@@ -14,18 +14,11 @@ public class CommentsDTO {
     }
 
     public CommentsDTO(Comment comment) {
-        this.commentId = comment.getCommentId();
         this.text = comment.getText();
         this.authorId = comment.getAuthor();
         this.recipeId = comment.getRecipe();
     }
-    public String getCommentId() {
-        return commentId;
-    }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
-    }
 
     public String getText() {
         return text;

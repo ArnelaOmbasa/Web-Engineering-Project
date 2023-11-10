@@ -54,16 +54,42 @@ public class CommentService {
         Comment savedComment = commentRepository.save(comment);
         return new CommentDTO(savedComment);
     }*/
-
-    public CommentsDTO updateComment(String commentId, Comment comment) {
+    public CommentsDTO updateComment(String commentId, String recipeId, Comment updatedComment) {
         Optional<Comment> existingComment = commentRepository.findById(commentId);
         if (existingComment.isEmpty()) {
             throw new ResourceNotFoundException("The comment with the given ID does not exist.");
         }
-        comment.setCommentId(existingComment.get().getCommentId());
-        Comment updatedComment = commentRepository.save(comment);
-        return new CommentsDTO(updatedComment);
+
+        Comment commentToUpdate = existingComment.get();
+        String oldCommentText = commentToUpdate.getText();
+
+        // Update the comment text
+        commentToUpdate.setText(updatedComment.getText());
+
+        Comment savedComment = commentRepository.save(commentToUpdate);
+
+        // Retrieve the recipe associated with the comment
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+        if (recipeOptional.isPresent()) {
+            Recipe recipe = recipeOptional.get();
+            List<String> recipeComments = recipe.getComments();
+            for (int i = 0; i < recipeComments.size(); i++) {
+                if (recipeComments.get(i).equals(oldCommentText)) {
+                    recipeComments.set(i, savedComment.getText()); // Update with the new comment text
+                    break;
+                }
+            }
+            recipeRepository.save(recipe);
+        }
+
+        return new CommentsDTO(savedComment);
     }
+
+
+
+
+
+
 
     public void deleteComment(String commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
@@ -97,7 +123,7 @@ public class CommentService {
 
 
 
-
+/*
     public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
         // Retrieve the Recipe document by ID
         Recipe recipe = recipeRepository.findById(recipeId)
@@ -118,7 +144,29 @@ public class CommentService {
         recipeRepository.save(recipe);
 
         return new CommentsDTO(savedComment);
-    }
+    }*/
+public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
+    // Retrieve the Recipe document by ID
+    Recipe recipe = recipeRepository.findById(recipeId)
+            .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+
+    // Create a new Comment entity
+    Comment comment = new Comment();
+    comment.setText(commentRequestDTO.getText());
+    comment.setRecipe(recipeId); // Set the recipe ID
+
+    // Save the Comment entity
+    Comment savedComment = commentRepository.save(comment);
+
+    // Add the comment text to the Recipe's comments list as a string
+    recipe.getComments().add(savedComment.getText());
+
+    // Update the Recipe document
+    recipeRepository.save(recipe);
+
+    return new CommentsDTO(savedComment);
+}
+
 
 
     public boolean deleteCommentByText(String recipeId, String commentText) {

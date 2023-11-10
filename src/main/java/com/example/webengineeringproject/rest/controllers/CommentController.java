@@ -41,6 +41,7 @@ public class CommentController {
         }
     }
     // Update an existing comment
+    /*
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<CommentsDTO> updateComment(@PathVariable String id, @RequestBody Comment comment) {
         CommentsDTO updatedComment = commentService.updateComment(id, comment);
@@ -49,7 +50,23 @@ public class CommentController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }*/
+
+
+    @RequestMapping(value = "/{recipeId}/{commentId}", method = RequestMethod.PUT)
+    public ResponseEntity<CommentsDTO> updateComment(
+            @PathVariable String recipeId,
+            @PathVariable String commentId,
+            @RequestBody Comment comment
+    ) {
+        CommentsDTO updatedComment = commentService.updateComment(commentId, recipeId, comment);
+        if (updatedComment != null) {
+            return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
 
     // Delete a comment by id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
