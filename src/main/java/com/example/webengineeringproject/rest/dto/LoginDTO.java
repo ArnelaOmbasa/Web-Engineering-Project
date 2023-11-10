@@ -1,11 +1,18 @@
 package com.example.webengineeringproject.rest.dto;
 
 public class LoginDTO {
-    private String jwt;
+        private String jwt;
 
+        public LoginDTO(String jwt) {
+            this.jwt = jwt;
+        }
 
-    public LoginDTO(String jwt) {
-        this.jwt = jwt;
+        public String getJwt() {
+            return jwt;
+        }
+
+        public void setJwt(String jwt) {
+            this.jwt = jwt;
+        }
     }
-}
 

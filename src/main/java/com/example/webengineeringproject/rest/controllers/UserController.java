@@ -5,6 +5,7 @@ import com.example.webengineeringproject.core.model.enums.UserRole;
 import com.example.webengineeringproject.core.service.UserService;
 import com.example.webengineeringproject.rest.dto.UserDTO;
 import com.example.webengineeringproject.rest.dto.UserRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@SecurityRequirement(name = "JWT Security")
 public class UserController {
 
 
