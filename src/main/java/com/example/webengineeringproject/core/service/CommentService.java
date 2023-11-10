@@ -8,6 +8,7 @@ import com.example.webengineeringproject.core.repository.RecipeRepository;
 import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.CommentsDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,8 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final RecipeService recipeService;
-    private final RecipeRepository recipeRepository;
+    @Autowired
+    private RecipeRepository recipeRepository;
 
     public CommentService(CommentRepository commentRepository, RecipeService recipeService, RecipeRepository recipeRepository) {
         this.commentRepository = commentRepository;
@@ -119,13 +121,19 @@ public class CommentService {
     }
 
 
-    public boolean deleteCommentById(String recipeId, String commentId) {
-        Optional<Comment> comment = commentRepository.findByIdAndRecipeId(commentId, recipeId);
+    public boolean deleteCommentByText(String recipeId, String commentText) {
+        Optional<Comment> comment = commentRepository.findByRecipeIdAndText(recipeId, commentText);
         if (comment.isPresent()) {
             commentRepository.delete(comment.get());
+
+            Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+            if (recipe.isPresent()) {
+                recipe.get().removeComment(commentText);
+                recipeRepository.save(recipe.get());
+            }
+
             return true;
-        } else {
-            throw new ResourceNotFoundException("No comment found for the given id and recipe.");
         }
+        return false;
     }
 }

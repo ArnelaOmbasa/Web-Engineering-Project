@@ -83,15 +83,16 @@ public class CommentController {
 
 
     // Delete a comment by ID within the scope of a specific recipe
-    @RequestMapping(value = "/{recipeId}/{commentId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteComment(@PathVariable String recipeId, @PathVariable String commentId) {
-        boolean isDeleted = commentService.deleteCommentById(recipeId, commentId);
+    @RequestMapping(value = "/{recipeId}/{commentText}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteComment(@PathVariable String recipeId, @PathVariable String commentText) {
+        boolean isDeleted = commentService.deleteCommentByText(recipeId, commentText);
         if (isDeleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
      /* // Create a new comment - I think it is better option to add a comment on the recipe with recipeId like I did above
     @RequestMapping(method = RequestMethod.POST)

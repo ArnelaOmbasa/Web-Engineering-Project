@@ -76,4 +76,12 @@ public class Recipe {
     public void setComments(List<String> comments) {
         this.comments = comments;
     }
+
+    public void addComment(String comment) {
+        comments.add(comment);
+    }
+
+    public void removeComment(String comment) {
+        comments.remove(comment);
+    }
 }

@@ -14,6 +14,8 @@ public interface CommentRepository extends MongoRepository<Comment,String> {
     @Query("{ 'recipe.id' : ?0 }")
     List<Comment> findByRecipeId(String recipeId);
 
+    @Query("{ 'recipeId' : ?0, 'text' : ?1 }")
+    Optional<Comment> findByRecipeIdAndText(String recipeId, String commentText);
 
 
     // Custom query to find a comment by ID and Recipe ID for deletion
