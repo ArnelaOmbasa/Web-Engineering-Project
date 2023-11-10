@@ -7,6 +7,9 @@ import com.example.webengineeringproject.core.repository.UserRepository;
 import com.example.webengineeringproject.rest.dto.UserDTO;
 import com.example.webengineeringproject.rest.dto.UserRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.example.webengineeringproject.core.exceptions.repository.ResourceNotFoundException;
 
@@ -85,5 +88,15 @@ public class UserService {
         Optional<User> user = userRepository.findFirstByEmailLike(email);
 
         return user.map(UserDTO::new).orElse(null);
+    }
+
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                return userRepository.findByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            }
+        };
     }
 }
