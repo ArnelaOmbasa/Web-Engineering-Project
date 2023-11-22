@@ -10,6 +10,8 @@ import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.CommentsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -146,6 +148,10 @@ public class CommentService {
         return new CommentsDTO(savedComment);
     }*/
 public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
+    // Retrieve the authenticated user's id
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String authorId = authentication.getName(); // Assuming the username is the authorId
+
     // Retrieve the Recipe document by ID
     Recipe recipe = recipeRepository.findById(recipeId)
             .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
@@ -154,6 +160,7 @@ public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO comment
     Comment comment = new Comment();
     comment.setText(commentRequestDTO.getText());
     comment.setRecipe(recipeId); // Set the recipe ID
+    comment.setAuthor(authorId); // Set the author ID
 
     // Save the Comment entity
     Comment savedComment = commentRepository.save(comment);

@@ -100,7 +100,7 @@ public class CommentController {
     public ResponseEntity<CommentsDTO> addCommentToRecipe(
             @PathVariable String recipeId,
             @RequestBody CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
-        // Now you can access commentRequestDTO.getText() without errors
+
         CommentsDTO addedComment = commentService.addCommentToRecipe(recipeId, commentRequestDTO);
 
         return new ResponseEntity<>(addedComment, HttpStatus.CREATED);
@@ -110,7 +110,7 @@ public class CommentController {
 
     // Delete a comment by ID within the scope of a specific recipe
     @RequestMapping(value = "/{recipeId}/{commentText}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority(ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteComment(@PathVariable String recipeId, @PathVariable String commentText) {
         boolean isDeleted = commentService.deleteCommentByText(recipeId, commentText);
         if (isDeleted) {
