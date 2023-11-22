@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class CommentController {
 
     // Retrieve all comments
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<CommentsDTO>> getAllComments() {
         List<CommentsDTO> comments = commentService.getAllComments();
         return new ResponseEntity<>(comments, HttpStatus.OK);
@@ -34,6 +36,7 @@ public class CommentController {
 
     // Retrieve a single comment by its ID
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<CommentsDTO> getCommentById(@PathVariable String id) {
         CommentsDTO comment = commentService.getCommentById(id);
         if (comment != null) {
@@ -56,6 +59,7 @@ public class CommentController {
 
 
     @RequestMapping(value = "/{recipeId}/{commentId}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<CommentsDTO> updateComment(
             @PathVariable String recipeId,
             @PathVariable String commentId,
@@ -72,6 +76,7 @@ public class CommentController {
 
     // Delete a comment by id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority( 'ADMIN')")
     public ResponseEntity<Void> deleteComment(@PathVariable String id) {
         commentService.deleteComment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -79,6 +84,7 @@ public class CommentController {
 
     // Retrieve all comments for a specific recipe
     @RequestMapping(value = "/{recipeId}/comment", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<CommentsDTO>> getCommentsByRecipeId(@PathVariable String recipeId) {
         List<CommentsDTO> comments = commentService.getCommentsForRecipe(recipeId);
         if (comments != null && !comments.isEmpty()) {
@@ -90,6 +96,7 @@ public class CommentController {
 
     // Add a comment to a recipe
     @RequestMapping(value = "/{recipeId}/comment", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<CommentsDTO> addCommentToRecipe(
             @PathVariable String recipeId,
             @RequestBody CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
@@ -103,6 +110,7 @@ public class CommentController {
 
     // Delete a comment by ID within the scope of a specific recipe
     @RequestMapping(value = "/{recipeId}/{commentText}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority(ADMIN')")
     public ResponseEntity<Void> deleteComment(@PathVariable String recipeId, @PathVariable String commentText) {
         boolean isDeleted = commentService.deleteCommentByText(recipeId, commentText);
         if (isDeleted) {

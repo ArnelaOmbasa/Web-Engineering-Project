@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +30,21 @@ public class RecipeController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
         RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO);
         return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
         List<RecipeDTO> recipes = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable String recipeId) {
         RecipeDTO recipe = recipeService.getRecipeById(recipeId);
         if (recipe != null) {
@@ -51,6 +55,7 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable String recipeId, @RequestBody RecipeRequestDTO recipeRequestDTO) {
         RecipeDTO updatedRecipe = recipeService.updateRecipe(recipeId, recipeRequestDTO);
         if (updatedRecipe != null) {
@@ -61,6 +66,7 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId) {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
