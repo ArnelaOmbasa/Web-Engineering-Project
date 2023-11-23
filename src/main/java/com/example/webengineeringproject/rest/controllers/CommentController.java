@@ -10,6 +10,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -86,7 +88,10 @@ public class CommentController {
     @RequestMapping(value = "/{recipeId}/comment", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<CommentsDTO>> getCommentsByRecipeId(@PathVariable String recipeId) {
-        List<CommentsDTO> comments = commentService.getCommentsForRecipe(recipeId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserId = authentication.getName();
+
+        List<CommentsDTO> comments = commentService.getCommentsForRecipe(recipeId,currentUserId );
         if (comments != null && !comments.isEmpty()) {
             return new ResponseEntity<>(comments, HttpStatus.OK);
         } else {

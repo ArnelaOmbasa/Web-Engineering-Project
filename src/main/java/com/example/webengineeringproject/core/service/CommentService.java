@@ -17,9 +17,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import static java.util.stream.Collectors.toList;
+
 
 @Service
 public class CommentService {
@@ -99,33 +98,34 @@ public class CommentService {
     }
 
 
-        public List<CommentsDTO> getCommentsForRecipe(String recipeId) {
+    public List<CommentsDTO> getCommentsForRecipe(String recipeId, String currentUserId) {
             Recipe recipe = recipeRepository.findById(recipeId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Recipe not found"));
-
-            List<String> commentTexts = recipe.getComments();
-
-            // Create CommentDTO objects for the comment texts
-            List<CommentsDTO> commentDTOs = new ArrayList<>();
-            for (String text : commentTexts) {
-                CommentsDTO commentDTO = new CommentsDTO();
-                commentDTO.setText(text);
-                commentDTO.setRecipeId(recipeId); // Set the recipeId
-                commentDTOs.add(commentDTO);
-            }
-
-            return commentDTOs;
+                .orElseThrow(() -> new ResourceNotFoundException("Recipe not found"));
 
 
+        List<Comment> comments = commentRepository.findByRecipeId(recipeId);
 
-
+        // Create CommentDTO objects for the comments
+        List<CommentsDTO> commentDTOs = new ArrayList<>();
+        for (Comment comment : comments) {
+            CommentsDTO commentDTO = new CommentsDTO();
+            commentDTO.setText(comment.getText());
+            commentDTO.setRecipeId(recipeId);
+            commentDTO.setAuthorId(comment.getAuthor());
+            commentDTOs.add(commentDTO);
         }
 
+        return commentDTOs;
+    }
 
 
 
 
-/*
+
+
+
+
+    /*
     public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
         // Retrieve the Recipe document by ID
         Recipe recipe = recipeRepository.findById(recipeId)
