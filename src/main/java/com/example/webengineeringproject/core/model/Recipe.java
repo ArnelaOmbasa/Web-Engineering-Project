@@ -14,7 +14,6 @@ public class Recipe {
     private String description;
     private List<String> ingredients;
     private String imageURL;
-    private String author;
 
     private List<String> comments = new ArrayList<String>();
 
