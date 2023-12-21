@@ -3,6 +3,7 @@ package com.example.webengineeringproject.rest.dto;
 import com.example.webengineeringproject.core.model.Recipe;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecipeDTO {
     private String recipeId;

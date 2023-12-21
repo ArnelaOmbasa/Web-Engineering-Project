@@ -5,20 +5,28 @@ import com.example.webengineeringproject.core.model.Comment;
 public class CommentRequestDTO {
 
     private String text;
-    private String authorId;
-    private String recipeId;
+    public CommentRequestDTO() {
+        // Default constructor
+    }
+    //public CommentRequestDTO(String text) {
+       // this.text = text;
+    //}
 
-    public CommentRequestDTO(String text, String authorId, String recipeId) {
-        this.text = text;
-        this.authorId = authorId;
-        this.recipeId = recipeId;
+    public String getText() {
+        return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    // Assuming there's a method in the Comment class to handle only setting text
     public Comment toEntity() {
         Comment comment = new Comment();
         comment.setText(this.text);
-        comment.setAuthor(this.authorId);
-        comment.setRecipe(this.recipeId);
+        // The authorId and recipeId should be set elsewhere, e.g., in the service layer
+        // comment.setAuthor(authorId);
+        // comment.setRecipe(recipeId);
         return comment;
     }
 }

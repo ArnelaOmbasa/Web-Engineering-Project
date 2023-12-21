@@ -12,7 +12,6 @@ public class Comment {
         private String recipeId;
 
     public Comment() {
-
         this.commentId = commentId;
         this.text = text;
         this.authorId = authorId;

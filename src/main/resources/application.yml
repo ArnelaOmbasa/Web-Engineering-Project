@@ -1,10 +1,4 @@
 configuration:
-  spring:
-    data:
-      mongodb:
-        host: localhost
-        port: 27017
-        database: food
   swagger:
     app: 'Recipe Sharing App'
     description: 'A simple recipe sharing app built with Spring Boot'
@@ -13,3 +7,12 @@ configuration:
   mailsender:
     default: 'sendgrid'
 
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: food
+security:
+  jwt:
+    secret: 'mXLjT3Gm4skNsCdntWodbHPb1GqY35fGVaisLwImIp8cLZP7W6'
