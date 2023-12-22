@@ -80,6 +80,15 @@ public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, String ownerId)
         recipeRepository.save(recipe);
     }
 
+    public String getOwnerId(String recipeId) {
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+        if (recipe.isPresent()) {
+            return recipe.get().getOwnerId();
+        } else {
+            throw new ResourceNotFoundException("Recipe not found for ID: " + recipeId);
+        }
+    }
+
 
 }
 
