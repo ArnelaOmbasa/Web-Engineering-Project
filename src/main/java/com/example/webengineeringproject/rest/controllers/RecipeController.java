@@ -8,6 +8,8 @@ import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.security.core.Authentication;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +30,21 @@ public class RecipeController {
         this.recipeService = recipeService;
         this.commentService = commentService;
     }
-
+/*
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
         RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO);
+        return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
+    }*/
+
+    @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public ResponseEntity<RecipeDTO> createRecipe(
+            @RequestBody RecipeRequestDTO recipeRequestDTO,
+            Authentication authentication) {
+        String ownerId = authentication.getName(); // Get the owner's ID from authentication
+        RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO, ownerId);
         return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
     }
 
