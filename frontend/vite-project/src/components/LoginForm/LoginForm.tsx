@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { TextField, Button, Paper, Grid, Typography, Container } from '@mui/material';
 
+
+const StyledPaper = styled(Paper)`
+  padding: 20px;
+  margin-top: 50px;
+`;
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
