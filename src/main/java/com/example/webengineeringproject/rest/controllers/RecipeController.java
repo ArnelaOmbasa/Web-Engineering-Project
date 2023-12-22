@@ -1,19 +1,16 @@
 package com.example.webengineeringproject.rest.controllers;
 
-import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.service.CommentService;
 import com.example.webengineeringproject.core.service.RecipeService;
-import com.example.webengineeringproject.rest.dto.CommentDTO;
-import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.security.core.Authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +40,7 @@ public class RecipeController {
     public ResponseEntity<RecipeDTO> createRecipe(
             @RequestBody RecipeRequestDTO recipeRequestDTO,
             Authentication authentication) {
+
         String ownerId = authentication.getName(); // Get the owner's ID from authentication
         RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO, ownerId);
         return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
