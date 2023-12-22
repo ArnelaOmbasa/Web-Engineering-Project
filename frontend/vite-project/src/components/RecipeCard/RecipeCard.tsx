@@ -9,10 +9,11 @@ type Props = {
 const RecipeCard = ({ recipe }: Props) => {
   return (
     <Card sx={{ maxWidth: 250 }}>
-      <CardMedia
-        sx={{ margin: 'auto', height: 180, width: 190, p: 2, borderBottom: 1, borderColor: 'text.secondary' }}
+       <CardMedia
+        component="img"
+        height="140"
         image={recipe.imageURL}
-        title={recipe.title}
+        alt={recipe.title}
       />
       <CardContent>
         <Typography gutterBottom variant="body1" component="div">

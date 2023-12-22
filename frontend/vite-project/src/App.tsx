@@ -1,17 +1,14 @@
-import RecipeCard from "./components/RecipeCard";
-import { dummyRecipes} from "./constants";
+import React from 'react';
+import RecipeList from './components/RecipeList'; 
+import './App.css'; 
 
-
-function App() {
-  
-
-    return (
-      <div>
-        <h1>Welcome to the Recipe Sharing Platform</h1>
-        <RecipeCard recipe={dummyRecipes[0]} />
-      </div>
-    );
-  
-}
+const App = () => {
+  return (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+      <h1>Welcome to the Recipe Sharing Platform</h1>
+      <RecipeList />
+    </div>
+  );
+};
 
 export default App;
