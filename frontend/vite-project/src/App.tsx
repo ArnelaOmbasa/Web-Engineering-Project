@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import './App.css';
 // App.tsx
 import RegisterForm from './components/RegisterForm';
+import RegisterPage from './pages/RegisterPage';
 
 
 
@@ -12,7 +13,7 @@ const App = () => {
   return (
 
     <div>
-    <RegisterForm />
+    <RegisterPage />
   </div>
   );
 };
