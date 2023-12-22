@@ -10,7 +10,6 @@ import java.io.IOException;
 public class NotificationService {
     private final MainSocketHandler mainSocketHandler;
 
-    @Autowired
     public NotificationService(MainSocketHandler mainSocketHandler) {
         this.mainSocketHandler = mainSocketHandler;
     }
