@@ -10,9 +10,9 @@ type Props = {
 const RecipeImage = ({ imageUrl, title }: Props) => (
   <CardMedia
     component="img"
-    height="140"
     image={imageUrl}
     alt={title}
+    sx={{ width: '100%', height: 'auto', objectFit: 'contain' }} // Adjust the style here
   />
 );
 
