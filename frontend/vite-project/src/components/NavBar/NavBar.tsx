@@ -5,7 +5,7 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
 const Navbar = () => {
   return (
-    <AppBar position="static" style={{ width: '100%' }}>
+    <AppBar position="static" sx={{ width: '100%', maxWidth: '100%', position: 'absolute', top: 0, left: 0 }}>
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Recipe Sharing Platform
