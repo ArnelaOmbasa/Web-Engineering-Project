@@ -1,22 +1,20 @@
-import React from 'react';
-import Home from './pages/Home';
-import LoginForm from './components/LoginForm';
-import LoginPage from './pages/LoginPage';
-import './App.css';
 // App.tsx
-import RegisterForm from './components/RegisterForm';
-import RegisterPage from './pages/RegisterPage';
-import RecipeImage from './components/RecipeImage';
-import spaghettiCarbonaraImg from './assets/spaghettiCarbonaraImg.jpg';
-
+import React from 'react';
+import './App.css';
+import RecipeDetails from './components/RecipeDetails/RecipeDetails'; // Ensure this path is correct
 
 const App = () => {
-  return (
+  const recipe = {
+    title: 'Spaghetti Carbonara',
+    description: 'A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.'
+  };
 
+  return (
     <div>
-    <RecipeImage imageUrl={spaghettiCarbonaraImg} title="Spaghetti Carbonara" />
-  </div>
+      <RecipeDetails recipe={recipe} />
+    </div>
   );
 };
+
 
 export default App;
