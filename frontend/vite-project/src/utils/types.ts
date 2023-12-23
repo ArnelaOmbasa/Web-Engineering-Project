@@ -13,4 +13,10 @@ export type Recipe = {
     text: string;
    
   };
+
+  export type User = {
+    username: string;
+    email: string;
+    recipes: Recipe[]; 
+  };
   
