@@ -6,14 +6,15 @@ import './App.css';
 // App.tsx
 import RegisterForm from './components/RegisterForm';
 import RegisterPage from './pages/RegisterPage';
-
+import RecipeImage from './components/RecipeImage';
+import spaghettiCarbonaraImg from './assets/spaghettiCarbonaraImg.jpg';
 
 
 const App = () => {
   return (
 
     <div>
-    <RegisterPage />
+    <RecipeImage imageUrl={spaghettiCarbonaraImg} title="Spaghetti Carbonara" />
   </div>
   );
 };
