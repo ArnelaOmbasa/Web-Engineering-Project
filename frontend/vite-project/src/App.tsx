@@ -1,20 +1,16 @@
 // App.tsx
 import React from 'react';
-import './App.css';
-import RecipeDetails from './components/RecipeDetails/RecipeDetails'; // Ensure this path is correct
+import IngredientsList from './components/IngredientsList';
 
 const App = () => {
-  const recipe = {
-    title: 'Spaghetti Carbonara',
-    description: 'A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.'
-  };
+  // Example array of ingredients
+  const ingredients = ['Pasta', 'Eggs', 'Cheese', 'Pancetta', 'Pepper'];
 
   return (
     <div>
-      <RecipeDetails recipe={recipe} />
+      <IngredientsList ingredients={ingredients} />
     </div>
   );
 };
-
 
 export default App;
