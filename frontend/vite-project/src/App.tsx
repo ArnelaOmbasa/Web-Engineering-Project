@@ -1,18 +1,16 @@
 // App.tsx
 import React from 'react';
-import CommentsList from './components/CommentsList';
+import NewCommentForm from './components/AddCommentForm';
 
 const App = () => {
-  // Example array of comments
-  const comments = [
-    { id: '1', text: 'Great recipe!' },
-    { id: '2', text: 'Loved it!' },
-    // ... more comments
-  ];
+  const handleCommentSubmit = (commentText: string) => {
+    console.log('New Comment:', commentText);
+    // Here, you can also update the state or call an API to save the comment
+  };
 
   return (
     <div>
-      <CommentsList comments={comments} />
+      <NewCommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
   );
 };
