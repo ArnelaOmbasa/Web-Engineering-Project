@@ -42,11 +42,17 @@ public class RecipeService {
         }
         return new RecipeDTO(recipe.get());
     }
-
+/*
     public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO) {
         Recipe recipe = recipeRepository.save(recipeRequestDTO.toEntity());
         return new RecipeDTO(recipe);
-    }
+    }*/
+public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, String ownerId) {
+    Recipe recipe = recipeRequestDTO.toEntity();
+    recipe.setOwnerId(ownerId); // Set the owner's ID
+    Recipe savedRecipe = recipeRepository.save(recipe);
+    return new RecipeDTO(savedRecipe);
+}
 
     public RecipeDTO updateRecipe(String recipeId, RecipeRequestDTO recipeRequestDTO) {
         Optional<Recipe> existingRecipe = recipeRepository.findById(recipeId);
@@ -72,6 +78,15 @@ public class RecipeService {
 
         // Update the recipe in the database
         recipeRepository.save(recipe);
+    }
+
+    public String getOwnerId(String recipeId) {
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+        if (recipe.isPresent()) {
+            return recipe.get().getOwnerId();
+        } else {
+            throw new ResourceNotFoundException("Recipe not found for ID: " + recipeId);
+        }
     }
 
 

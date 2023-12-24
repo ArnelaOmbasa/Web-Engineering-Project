@@ -11,6 +11,7 @@ public class RecipeDTO {
     private String description;
     private List<String> ingredients;
     private String imageURL;
+    private String ownerId;
 
     private List<String> comments;
 
@@ -22,6 +23,7 @@ public class RecipeDTO {
         this.ingredients = recipe.getIngredients();
         this.imageURL = recipe.getImageURL();
         this.comments = recipe.getComments();
+        this.ownerId = recipe.getOwnerId();
 
     }
 
@@ -31,6 +33,13 @@ public class RecipeDTO {
 
     public void setRecipeId(String recipeId) {
         this.recipeId = recipeId;
+    }
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {
