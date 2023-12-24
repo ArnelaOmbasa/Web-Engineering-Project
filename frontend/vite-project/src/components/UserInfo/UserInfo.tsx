@@ -1,4 +1,3 @@
-// UserInfo.tsx
 import React from 'react';
 import { User } from '../../utils/types';
 import Container from '@mui/material/Container';
@@ -9,32 +8,35 @@ import { grey } from '@mui/material/colors';
 
 type Props = {
   user: User;
+  onEditClick: () => void;
 };
 
-const UserInfo = ({ user }: Props) => {
+const UserInfo = ({ user,onEditClick }: Props) => {
   return (
-    <Container maxWidth="sm" sx={{ backgroundColor: 'primary.main', padding: '20px', borderRadius: '15px', textAlign: 'center', color: '#fff' }}>
+    <Container maxWidth="sm" sx={{ backgroundColor: 'white', padding: '20px', borderRadius: '15px', textAlign: 'center', color: '#1976D2' }}>
       <UserAvatar username={user.username} size="80px" fontSize="30px" sx={{ margin: '15px auto', bgcolor: grey[500] }} />
-      <Typography variant="h5" gutterBottom sx={{ color: '#fff' }}>
+      <Typography variant="h5" gutterBottom sx={{ color: '#1976D2' }}>
         {user.username}
       </Typography>
-      <Typography variant="body2" gutterBottom sx={{ color: '#fff' }}> 
+      <Typography variant="body2" gutterBottom sx={{ color: '#1976D2' }}> 
         {user.email} 
       </Typography>
       <Button 
-        size="medium" 
-        variant="contained"
-        sx={{ 
-          marginTop: '20px', 
-          backgroundColor: '#fff', // White background
-          color: grey[800], // Gray text
-          '&:hover': {
-            backgroundColor: grey[100], // Lighter gray on hover
-          }
-        }}
-      >
-        Edit personal information
-      </Button>
+  size="medium" 
+  variant="outlined" // Use "outlined" variant
+  sx={{ 
+    marginTop: '20px', 
+    borderColor: '#1976D2', // Blue border color
+    color: '#1976D2', // Blue text color
+    '&:hover': {
+      backgroundColor: '#1976D2', // Blue background on hover
+      color: 'white', // White text color on hover
+    }
+  }} onClick={onEditClick}
+>
+  Edit personal information
+</Button>
+
     </Container>
   );
 };

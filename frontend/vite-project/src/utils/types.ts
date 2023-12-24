@@ -17,6 +17,9 @@ export type Recipe = {
   export type User = {
     username: string;
     email: string;
-    recipes: Recipe[]; 
+    password: string;
+    role: string;
+    recipes?: Recipe[]; 
   };
+  
   

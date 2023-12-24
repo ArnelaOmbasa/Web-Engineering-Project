@@ -1,14 +1,15 @@
-// App.tsx
 import React from 'react';
-import UploadRecipePage from './pages//UploadRecipePage'; // Adjust the import path as needed
+import UserProfile from './pages/UserProfile';
+// other imports...
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <UploadRecipePage />
-      {/* You can add other components or routing logic here */}
+    <div className="App">
+      {/* other components */}
+      <UserProfile />
+      {/* other components */}
     </div>
   );
-};
+}
 
 export default App;
