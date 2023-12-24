@@ -23,14 +23,14 @@ const UserInfo = ({ user,onEditClick }: Props) => {
       </Typography>
       <Button 
   size="medium" 
-  variant="outlined" // Use "outlined" variant
+  variant="outlined" 
   sx={{ 
     marginTop: '20px', 
-    borderColor: '#1976D2', // Blue border color
-    color: '#1976D2', // Blue text color
+    borderColor: '#1976D2', 
+    color: '#1976D2', 
     '&:hover': {
-      backgroundColor: '#1976D2', // Blue background on hover
-      color: 'white', // White text color on hover
+      backgroundColor: '#1976D2', 
+      color: 'white', 
     }
   }} onClick={onEditClick}
 >
