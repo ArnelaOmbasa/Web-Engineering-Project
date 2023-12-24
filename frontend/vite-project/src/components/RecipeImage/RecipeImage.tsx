@@ -12,8 +12,9 @@ const RecipeImage = ({ imageUrl, title }: Props) => (
     component="img"
     image={imageUrl}
     alt={title}
-    sx={{ width: '100%', height: 'auto', objectFit: 'contain' }} // Adjust the style here
+    sx={{ width: '100%', height: 'auto', maxHeight: 1000, objectFit: 'cover' }} // Adjust the style here
   />
 );
+
 
 export default RecipeImage;
