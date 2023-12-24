@@ -8,8 +8,7 @@ type Props = {
 
 const RecipeCard = ({ recipe }: Props) => {
   return (
-    <Card sx={{ maxWidth: 250 }}>
-       <CardMedia
+<Card sx={{ maxWidth: 250 }}>       <CardMedia
         component="img"
         height="140"
         image={recipe.imageURL}

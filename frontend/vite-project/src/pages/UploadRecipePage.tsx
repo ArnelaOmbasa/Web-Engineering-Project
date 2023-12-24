@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import RecipeUploadForm from '../components/RecipeUploadForm';
 import RecipeList from '../components/RecipeList';
+import UserRecipeList from '../components/UserRecipeList';
 import { Button, Box } from '@mui/material';
 
 const UploadRecipePage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const currentUserID = 'user_id_1'; // Replace with actual current user ID
+
 
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
@@ -24,7 +27,7 @@ const UploadRecipePage = () => {
       </Button>
       <RecipeUploadForm open={modalOpen} onClose={handleCloseModal} onUpload={handleUploadRecipe} />
       <Box sx={{ marginTop: 2 }}>
-        <RecipeList /> {/* Displaying the list of user's recipes */}
+        <UserRecipeList userId={currentUserID} />
       </Box>
     </Box>
   );
