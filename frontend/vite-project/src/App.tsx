@@ -14,7 +14,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
-   /* <>
+    <>
     <Navbar isLoggedIn={isLoggedIn} />
     <div className="root-content">
       <Routes>
@@ -26,8 +26,8 @@ function App() {
         <Route path="/upload" element={<UploadRecipePage />} />
       </Routes>
     </div>
-  </>*/
-  <RecipeDetailPage/>
+  </>
+  
 );
 }
 

@@ -8,13 +8,15 @@ type Props = {
 
 const RecipeCard = ({ recipe }: Props) => {
   return (
-<Card sx={{ maxWidth: 250 }}>       <CardMedia
-        component="img"
-        height="140"
-        image={recipe.imageURL}
-        alt={recipe.title}
-      />
-      <CardContent>
+<Card sx={{ maxWidth: 800, height: '100%', display: 'flex', flexDirection: 'column' }}>
+  <CardMedia
+    component="img"
+    height="140"
+    image={recipe.imageURL}
+    alt={recipe.title}
+  />
+  <CardContent sx={{ flexGrow: 1 }}>
+      
         <Typography gutterBottom variant="body1" component="div">
           {recipe.title}
         </Typography>
