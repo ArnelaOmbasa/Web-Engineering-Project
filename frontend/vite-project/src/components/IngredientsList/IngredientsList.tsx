@@ -1,5 +1,5 @@
 // IngredientsList.tsx
-import React from 'react';
+
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 
 type Props = {

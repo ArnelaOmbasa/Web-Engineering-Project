@@ -1,7 +1,5 @@
-import React from 'react';
 import { Grid, Card, Box, Typography } from '@mui/material';
 import RecipeImage from '../components/RecipeImage';
-import RecipeDetails from '../components/RecipeDetails/RecipeDetails';
 import IngredientsList from '../components/IngredientsList';
 import CommentsList from '../components/CommentsList';
 import NewCommentForm from '../components/AddCommentForm';

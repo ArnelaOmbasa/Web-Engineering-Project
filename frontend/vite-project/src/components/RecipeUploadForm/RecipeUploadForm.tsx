@@ -26,10 +26,10 @@ const RecipeUploadForm = ({ open, onClose, onUpload }: RecipeUploadFormProps) =>
   const [imageURL, setImageURL] = useState('');
 
   const handleSubmit = () => {
-    // Here, split the ingredients string into an array
+    
     const ingredientsArray = ingredients.split(',').map(item => item.trim());
     onUpload(title, description, ingredientsArray, imageURL);
-    onClose(); // Close the modal after submission
+    onClose(); 
   };
 
   return (

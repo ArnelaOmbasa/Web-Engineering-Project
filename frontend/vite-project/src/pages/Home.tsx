@@ -1,6 +1,4 @@
 // Home.tsx
-
-import React from 'react';
 import Navbar from '../components/NavBar';
 import RecipeCardList from '../components/RecipeList';
 

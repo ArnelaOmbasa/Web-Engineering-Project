@@ -1,4 +1,3 @@
-import React from 'react';
 import RegisterForm from '../components/RegisterForm'; // Ensure this path is correct
 import { Container, CssBaseline, Box } from '@mui/material';
 

@@ -1,7 +1,6 @@
 // UploadRecipePage.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import RecipeUploadForm from '../components/RecipeUploadForm';
-import RecipeList from '../components/RecipeList';
 import UserRecipeList from '../components/UserRecipeList';
 import { Button, Box } from '@mui/material';
 

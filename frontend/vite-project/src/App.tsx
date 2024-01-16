@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import RecipeDetailPage from './pages/RecipeDetails';
+import React from 'react';
+import './App.css';
+import AdminPage from './pages/AdminPage';
 
 
 function App() {
   return (
     <div>
       {/* Other components */}
-      <RecipeDetailPage />
+      <AdminPage />
       {/* Other components */}
     </div>
   );
