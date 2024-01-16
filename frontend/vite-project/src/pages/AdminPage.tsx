@@ -5,6 +5,8 @@ import CommentIcon from '@mui/icons-material/Comment';
 import PeopleIcon from '@mui/icons-material/People';
 import RecipeComponent from '../components/RecipeTable'; // Import your RecipeComponent here
 import CommentComponent from '../components/CommentTable'; // Import your CommentComponent here
+import UserComponent from '../components/UsersTable'; // Import your UserComponent here
+import { User } from '../utils/types';
 
 const drawerWidth = 240;
 
@@ -26,6 +28,25 @@ function AdminPage() {
             authorId: 'user123',
            
         };
+        interface User {
+            userId: string;
+            username: string;
+            email: string;
+            role: UserRole; // Make sure you have 'UserRole' type defined
+          }
+
+            interface UserRole {
+                role: 'admin' | 'user';
+            }
+
+        const sampleUser: User = {
+            userId: '1',
+            username: 'sampleUser',
+            email: 'sampleuser@gmail.com',
+            role: { role: 'user' },
+          };
+          
+          
 
 
   const [selectedContent, setSelectedContent] = useState(''); // State to track selected content
@@ -73,9 +94,15 @@ function AdminPage() {
  {selectedContent === 'Comments' && (
   <CommentComponent comment={sampleComment} onDelete={() => { /* Handle onDelete */ }} />
 )}
+{selectedContent === 'Users' && (
+          <UserComponent user={sampleUser} onDelete={() => { /* Handle onDelete */ }} />
+        )}
+
+
+
 
      
-      </Box>
+</Box>
     </Box>
   );
 }
