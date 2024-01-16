@@ -5,25 +5,38 @@ import CommentsList from '../components/CommentsList';
 import NewCommentForm from '../components/AddCommentForm';
 import { Recipe } from '../utils/types';
 import spaghettiCarbonaraImg from '../assets/spaghettiCarbonaraImg.jpg';
+import { useParams } from 'react-router-dom';
 
-const recipe: Recipe = {
-  recipeId: '1',
-  title: 'Spaghetti Carbonara',
-  description: 'A classic Italian pasta dish made with eggs, cheese, bacon and black paper.',
-  ingredients: ['Pasta', 'Eggs', 'Cheese'],
-  imageURL: spaghettiCarbonaraImg,
-  author: 'Arnela Ombaša',
-  comments: [
+const recipes: Recipe[] = [
+  // ... your other recipes
+  {
+    recipeId: '1',
+    title: 'Spaghetti Carbonara',
+    description: 'A classic Italian pasta dish made with eggs, cheese, bacon, and black pepper.',
+    ingredients: ['Pasta', 'Eggs', 'Cheese'],
+    imageURL: spaghettiCarbonaraImg,
+    author: 'Arnela Ombaša',
+    comments: [
       { id: '1', text: 'So delicious :)' },
       { id: '2', text: 'Great recipe!' }
-  ]
-};
+    ]
+  }
+  // ... more recipes
+];
+
 
 const handleNewComment = (commentText: string) => {
   // ...handleNewComment function
 };
 
 const RecipeDetailPage = () => {
+  const { recipeId } = useParams<{ recipeId: string }>(); // Ensure that useParams is used correctly with a type parameter.
+  const recipe = recipes.find(r => r.recipeId === recipeId); // Use the array of recipes here.
+
+  if (!recipe) {
+    // Render something if the recipe is not found
+    return <div>Recipe not found</div>;
+  }
  
   return (
     <Box sx={{ flexGrow: 1, m: 4 }}>

@@ -24,6 +24,8 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<UserProfilePage />} />
         <Route path="/upload" element={<UploadRecipePage />} />
+        <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
+
       </Routes>
     </div>
   </>
