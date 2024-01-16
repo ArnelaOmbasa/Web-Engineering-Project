@@ -4,6 +4,7 @@ import KitchenIcon from '@mui/icons-material/Kitchen';
 import CommentIcon from '@mui/icons-material/Comment';
 import PeopleIcon from '@mui/icons-material/People';
 import RecipeComponent from '../components/RecipeTable'; // Import your RecipeComponent here
+import CommentComponent from '../components/CommentTable'; // Import your CommentComponent here
 
 const drawerWidth = 240;
 
@@ -17,6 +18,14 @@ function AdminPage() {
         imageURL: 'https://example.com/sample-image.jpg',
         ownerId: 'user123',
       };
+
+        const sampleComment = {
+            commentId: '1',
+            text: 'This is a sample comment',
+            recipeId: '1',
+            authorId: 'user123',
+           
+        };
 
 
   const [selectedContent, setSelectedContent] = useState(''); // State to track selected content
@@ -60,6 +69,9 @@ function AdminPage() {
         <Toolbar />
         {selectedContent === 'Recipes' && (
   <RecipeComponent recipe={sampleRecipe} onDelete={() => { /* Handle onDelete */ }} />
+)}
+ {selectedContent === 'Comments' && (
+  <CommentComponent comment={sampleComment} onDelete={() => { /* Handle onDelete */ }} />
 )}
 
      
