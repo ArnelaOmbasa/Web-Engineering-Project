@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,10 +6,50 @@
   text-align: center;
 }
 
-/* Remove any width constraints from .navbar if not necessary */
+/* Ensure the AppBar takes full width and is fixed */
+.AppBar-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100; /* Default
+for MUI AppBar */
+}
+
+/* Use padding-top on the main content to prevent overlap with the AppBar */
+.root-content {
+padding-top: 64px; 
+max-width: 1280px;
+margin: 0 auto;
+text-align: center;
+}
+
+
+
+
+
+
+
+
+/*ovdje*/
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Remove any width constraints from .navbar if not necessary 
 .navbar {
   width: 100%;
   margin: 0;
+}*/
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure it appears on top of other elements */
 }
 
 /* Apply constraints to specific content areas */
@@ -16,6 +57,18 @@
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+}
+.AppBar-root {
+  width: 100%; /* Ensure the AppBar takes full width */
+}
+
+.Tabs-root {
+  justify-content: space-between; /* This will push your tabs to occupy all available space */
+}
+
+.Tabs-flexContainer {
+  justify-content:
+flex-end; /* Aligns the tabs (menu items) to the right */
 }
 
 /*
