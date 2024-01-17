@@ -30,7 +30,7 @@ public class CommentController {
 
     // Retrieve all comments
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<CommentsDTO>> getAllComments() {
         List<CommentsDTO> comments = commentService.getAllComments();
         return new ResponseEntity<>(comments, HttpStatus.OK);
@@ -38,7 +38,7 @@ public class CommentController {
 
     // Retrieve a single comment by its ID
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<CommentsDTO> getCommentById(@PathVariable String id) {
         CommentsDTO comment = commentService.getCommentById(id);
         if (comment != null) {

@@ -7,12 +7,14 @@ export type Recipe = {
     ownerId: string;
     comments: string[];
   }
+  export type Comment = {
+    commentId: string;
+    text: string;
+    authorId: string;
+    recipeId: string;
+  };
+  
 
-// Define your Comment type according to the actual structure of a comment object
-export type Comment = {
-  text: string;
-  // ...other properties
-};
 
 
 

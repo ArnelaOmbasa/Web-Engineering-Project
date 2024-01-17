@@ -4,16 +4,20 @@ import KitchenIcon from '@mui/icons-material/Kitchen';
 import CommentIcon from '@mui/icons-material/Comment';
 import PeopleIcon from '@mui/icons-material/People';
 import RecipeTable from '../components/RecipeTable';
-import CommentComponent from '../components/CommentTable';
+import CommentTable from '../components/CommentTable';
 import UserComponent from '../components/UsersTable';
 import { User } from '../utils/types';
 import useGetAllRecipes from '../hooks/useGetAllRecipes';
+import useGetAllComments from '../hooks/useGetAllComments'; // Import the hook for comments
+
 
 const drawerWidth = 240;
 
 function AdminPage() {
   const [selectedContent, setSelectedContent] = useState('');
   const { data: recipes, isLoading, isError, error } = useGetAllRecipes();
+  const { data: comments, isLoading: isLoadingComments, isError: isErrorComments, error: errorComments } = useGetAllComments(); // Use the custom hook to fetch comments
+
 
   const handleListItemClick = (content: string) => {
     setSelectedContent(content);
@@ -21,6 +25,11 @@ function AdminPage() {
 
   const handleDeleteRecipe = (recipeId: string) => {
     console.log('Delete recipe with ID:', recipeId);
+    // Implement the delete functionality here
+  };
+
+  const handleDeleteComment = (commentId: string) => {
+    console.log('Delete comment with ID:', commentId);
     // Implement the delete functionality here
   };
 
@@ -68,7 +77,18 @@ function AdminPage() {
             )}
           </>
         )}
-        {/* ... other selected content ... */}
+         {selectedContent === 'Comments' && (
+          <>
+            {isLoadingComments && <Typography>Loading comments...</Typography>}
+            {isErrorComments && <Typography>Error: {errorComments?.message}</Typography>}
+            {!isLoadingComments && !isErrorComments && comments && (
+              <CommentTable
+                comments={comments}
+                onDelete={handleDeleteComment}
+              />
+            )}
+          </>
+        )}
       </Box>
     </Box>
   );
