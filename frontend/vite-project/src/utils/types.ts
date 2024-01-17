@@ -5,14 +5,16 @@ export type Recipe = {
     ingredients: string[];
     imageURL: string;
     author: string;
-    comments: Comment[];
+    comments: string[];
   }
 
-  export type Comment = {
-    id: string;
-    text: string;
-   
-  };
+// Define your Comment type according to the actual structure of a comment object
+export type Comment = {
+  text: string;
+  // ...other properties
+};
+
+
 
   export type User = {
     username: string;

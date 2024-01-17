@@ -3,7 +3,7 @@ import spaghettiCarbonaraImg from './assets/spaghettiCarbonaraImg.jpg';
 import vegetableStirFryImg from './assets/vegetableStirFryImg.jpg';
 import chickenCurryImg from './assets/chickenCurryImg.jpg';
 import cheeseburgerImg from './assets/cheeseburgerImg.jpg';
-
+/*
 export const dummyRecipes: Recipe[] = [
   {
     recipeId: '1',
@@ -78,7 +78,7 @@ export const dummyRecipes: Recipe[] = [
     ]
   }
 
-];
+];*/
 
 export const BASE_URL = 'http://localhost:8080'
 

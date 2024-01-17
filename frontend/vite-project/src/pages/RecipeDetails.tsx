@@ -7,6 +7,12 @@ import NewCommentForm from '../components/AddCommentForm';
 import { useParams } from 'react-router-dom';
 import useGetRecipeById from '../hooks/useGetRecipeById'; // Import your custom hook
 
+
+type Comment = {
+  text: string;
+  // ...other properties
+};
+
 const RecipeDetailPage = () => {
   const { recipeId } = useParams<{ recipeId?: string }>(); // Note that recipeId is optional
   const {
@@ -16,7 +22,7 @@ const RecipeDetailPage = () => {
     error,
   } = useGetRecipeById(recipeId!); // Using non-null assertion operator `!` since we are handling undefined case
 
-  
+
   // Handle the loading state
   if (isLoading) {
     return <div>Loading...</div>;
@@ -36,6 +42,9 @@ const RecipeDetailPage = () => {
   const handleNewComment = (commentText: string) => {
     // Logic to post a new comment
   };
+
+
+
 
   return (
     <Box sx={{ flexGrow: 1, m: 4 }}>
@@ -77,8 +86,8 @@ const RecipeDetailPage = () => {
               <IngredientsList ingredients={recipe.ingredients} />
             </Box>
             <Box>
-              <CommentsList comments={recipe.comments} />
-            </Box>
+            <CommentsList comments={recipe.comments} />
+                    </Box>
             <Box sx={{ mt: 4 }}>
               <NewCommentForm onCommentSubmit={handleNewComment} />
             </Box>

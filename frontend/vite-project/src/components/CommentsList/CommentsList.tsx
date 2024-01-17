@@ -2,10 +2,16 @@
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, Paper } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import  {Comment } from '../../utils/types';
 
+// Update the type to match the expected prop
 type Props = {
-  comments: string[]; // Update the type to string[]
+  comments: string[]; // If you are passing an array of strings
 };
+
+// ... rest of the CommentsList component
+
+
 
 const CommentsList = ({ comments }: Props) => (
   <List>
@@ -13,13 +19,13 @@ const CommentsList = ({ comments }: Props) => (
       <React.Fragment key={index}>
         {index > 0 && <Divider variant="inset" component="li" />}
         <Paper elevation={3} style={{ margin: '10px 0', padding: '10px' }}>
-        <ListItem alignItems="center"> {/* Changed from 'flex-start' to 'center' */}
+          <ListItem alignItems="center">
             <ListItemAvatar>
               <Avatar>
                 <AccountCircleIcon style={{ fontSize: 40, color: 'blue' }} />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={comment} />
+            <ListItemText primary={comment || 'No text available'} />
           </ListItem>
         </Paper>
       </React.Fragment>
