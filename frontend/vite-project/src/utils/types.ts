@@ -4,7 +4,7 @@ export type Recipe = {
     description: string;
     ingredients: string[];
     imageURL: string;
-    author: string;
+    ownerId: string;
     comments: string[];
   }
 

@@ -1,25 +1,19 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Recipe } from '../../utils/types'; // Assuming this is the correct path to your type
 
-interface Recipe {
-  recipeId: string;
-  title: string;
-  description: string;
-  ingredients: string[];
-  imageURL: string;
-  ownerId: string;
+interface RecipeTableProps {
+  recipes: Recipe[];
+  onDelete: (recipeId: string) => void;
 }
 
-interface RecipeProps {
-  recipe: Recipe;
-  onDelete: () => void;
-}
+function RecipeTable(props: RecipeTableProps) {
+  const { recipes, onDelete } = props;
 
-function RecipeComponent({ recipe, onDelete }: RecipeProps) {
   return (
     <TableContainer component={Paper} variant="outlined">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="recipe table">
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
@@ -32,29 +26,27 @@ function RecipeComponent({ recipe, onDelete }: RecipeProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {recipe.recipeId}
-            </TableCell>
-            <TableCell>{recipe.title}</TableCell>
-            <TableCell>{recipe.description}</TableCell>
-            <TableCell>{recipe.ingredients.join(', ')}</TableCell>
-            <TableCell>
-              <a href={recipe.imageURL} target="_blank" rel="noopener noreferrer">View Image</a>
-            </TableCell>
-            <TableCell>{recipe.ownerId}</TableCell>
-            <TableCell>
-            <IconButton onClick={onDelete} color="error">
-<DeleteIcon />
-</IconButton>
-            </TableCell>
-          </TableRow>
+          {recipes.map((recipe) => (
+            <TableRow key={recipe.recipeId}>
+              <TableCell component="th" scope="row">{recipe.recipeId}</TableCell>
+              <TableCell>{recipe.title}</TableCell>
+              <TableCell>{recipe.description}</TableCell>
+              <TableCell>{recipe.ingredients.join(', ')}</TableCell>
+              <TableCell>
+                <a href={recipe.imageURL} target="_blank" rel="noopener noreferrer">View Image</a>
+              </TableCell>
+              <TableCell>{recipe.ownerId}</TableCell>
+              <TableCell>
+                <IconButton onClick={() => onDelete(recipe.recipeId)} color="error">
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default RecipeComponent;
+export default RecipeTable;

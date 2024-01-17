@@ -9,6 +9,7 @@ import HomePage from './pages/Home';
 import UserProfilePage from './pages/UserProfile';
 import UploadRecipePage from './pages/UploadRecipePage';
 import RecipeDetailPage from './pages/RecipeDetails';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -17,7 +18,7 @@ function App() {
     <>
     <Navbar isLoggedIn={isLoggedIn} />
     <div className="root-content">
-      <Routes>
+    { /* <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -26,7 +27,8 @@ function App() {
         <Route path="/upload" element={<UploadRecipePage />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
 
-      </Routes>
+      </Routes>*/}
+      <AdminPage />
     </div>
   </>
   
