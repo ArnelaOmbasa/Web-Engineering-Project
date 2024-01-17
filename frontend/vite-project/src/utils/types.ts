@@ -18,12 +18,13 @@ export type Recipe = {
 
 
 
+  export type UserRole = 'ADMIN' | 'USER';
+
   export type User = {
+    userId: string;
     username: string;
     email: string;
-    password: string;
-    role: string;
-    recipes?: Recipe[]; 
+    role: UserRole;
   };
 
  

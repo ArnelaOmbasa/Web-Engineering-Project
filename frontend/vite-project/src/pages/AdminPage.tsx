@@ -5,10 +5,11 @@ import CommentIcon from '@mui/icons-material/Comment';
 import PeopleIcon from '@mui/icons-material/People';
 import RecipeTable from '../components/RecipeTable';
 import CommentTable from '../components/CommentTable';
-import UserComponent from '../components/UsersTable';
+import UserTable from '../components/UsersTable';
 import { User } from '../utils/types';
 import useGetAllRecipes from '../hooks/useGetAllRecipes';
 import useGetAllComments from '../hooks/useGetAllComments'; // Import the hook for comments
+import useGetAllUsers from '../hooks/useGetAllUsers'; // Make sure to import your hook
 
 
 const drawerWidth = 240;
@@ -17,6 +18,7 @@ function AdminPage() {
   const [selectedContent, setSelectedContent] = useState('');
   const { data: recipes, isLoading, isError, error } = useGetAllRecipes();
   const { data: comments, isLoading: isLoadingComments, isError: isErrorComments, error: errorComments } = useGetAllComments(); // Use the custom hook to fetch comments
+  const { data: users, isLoading: isLoadingUsers, isError: isErrorUsers, error: errorUsers } = useGetAllUsers(); // Use the custom hook to fetch users
 
 
   const handleListItemClick = (content: string) => {
@@ -30,6 +32,11 @@ function AdminPage() {
 
   const handleDeleteComment = (commentId: string) => {
     console.log('Delete comment with ID:', commentId);
+    // Implement the delete functionality here
+  };
+
+  const handleDeleteUser = (userId: string) => {
+    console.log('Delete user with ID:', userId);
     // Implement the delete functionality here
   };
 
@@ -85,6 +92,21 @@ function AdminPage() {
               <CommentTable
                 comments={comments}
                 onDelete={handleDeleteComment}
+              />
+            )}
+            
+          </>
+        )}
+
+{selectedContent === 'Users' && (
+          <>
+            {isLoadingUsers && <Typography>Loading users...</Typography>}
+            {isErrorUsers && <Typography>Error: {errorUsers?.message}</Typography>}
+            {!isLoadingUsers && !isErrorUsers && users && (
+              <UserTable
+                users={users}
+                onDelete={handleDeleteComment}
+                // Replace the console.log with your delete logic
               />
             )}
           </>

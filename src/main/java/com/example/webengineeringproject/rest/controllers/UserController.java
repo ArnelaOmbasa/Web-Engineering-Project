@@ -36,13 +36,13 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String userId) {
         return ResponseEntity.ok(userService.getUserById(userId));
     }

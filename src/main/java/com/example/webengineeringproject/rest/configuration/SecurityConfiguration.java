@@ -36,7 +36,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/recipes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/comments/**").permitAll()
                         .requestMatchers("/recipes/**").authenticated()
-                        .requestMatchers("/users/**").authenticated()
+                        .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/comments/**").authenticated()
                         .anyRequest().permitAll())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
