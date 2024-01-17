@@ -82,6 +82,13 @@ public class RecipeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(value = "/author/{username}", method = RequestMethod.GET)
+//@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public ResponseEntity<List<RecipeDTO>> getRecipesByAuthorUsername(@PathVariable String username) {
+        List<RecipeDTO> recipes = recipeService.getRecipesByAuthorUsername(username);
+        return ResponseEntity.ok(recipes);
+    }
+
 
 
 }

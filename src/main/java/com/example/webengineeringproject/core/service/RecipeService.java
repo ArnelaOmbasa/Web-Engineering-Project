@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -87,6 +88,11 @@ public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, String ownerId)
         } else {
             throw new ResourceNotFoundException("Recipe not found for ID: " + recipeId);
         }
+    }
+
+    public List<RecipeDTO> getRecipesByAuthorUsername(String ownerId) {
+        List<Recipe> recipes = recipeRepository.findByOwnerId(ownerId);
+        return recipes.stream().map(RecipeDTO::new).collect(Collectors.toList());
     }
 
 
