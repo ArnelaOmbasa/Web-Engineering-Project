@@ -47,14 +47,14 @@ public class RecipeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
         List<RecipeDTO> recipes = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable String recipeId) {
         RecipeDTO recipe = recipeService.getRecipeById(recipeId);
         if (recipe != null) {

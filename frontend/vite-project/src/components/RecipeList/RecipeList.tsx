@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid } from '@mui/material';
 import RecipeCard from "../../components/RecipeCard";
-import { Recipe } from '../../utils/types';
-import { dummyRecipes} from "../../constants";
+import useGetAllRecipes from "../../hooks/useGetAllRecipes"; // Import your custom hook
 
-type Props = {};
+const RecipeCardList = () => {
+  // Use the useGetAllRecipes hook
+  const { data: recipes, isLoading, error } = useGetAllRecipes();
 
-const RecipeCardList = (props: Props) => {
-  const [recipes, setRecipes] = useState<Recipe[]>(dummyRecipes);
+  // Display loading state
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Display error state
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <Grid container spacing={2}>
-      {recipes.map((recipe, i) => (
+      {recipes && recipes.map((recipe, i) => (
         <Grid item key={i} xs={12} sm={6} md={4} lg={3}>
           <RecipeCard recipe={recipe} />
         </Grid>
