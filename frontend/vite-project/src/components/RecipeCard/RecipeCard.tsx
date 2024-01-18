@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Container } from '@mui/material';
 import { Recipe } from '../../utils/types';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,8 @@ type Props = {
 
 const RecipeCard = ({ recipe }: Props) => {
   return (
-<Card sx={{ maxWidth: 800, height: '100%', display: 'flex', flexDirection: 'column' }}>
+<Card sx={{ minWidth: 200, maxWidth: "sm", display: 'flex', flexDirection: 'column' }}>
+  <Container sx={{ flexGrow: 1 }} maxWidth="sm">
   <CardMedia
     component="img"
     height="140"
@@ -34,6 +35,7 @@ const RecipeCard = ({ recipe }: Props) => {
         View Details
       </Button>
       </CardActions>
+      </Container>
     </Card>
   );
 }

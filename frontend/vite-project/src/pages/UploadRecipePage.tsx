@@ -60,9 +60,10 @@ const UploadRecipePage = () => {
         Add New Recipe
       </Button>
       <RecipeUploadForm open={modalOpen} onClose={handleCloseModal} onUpload={handleUploadRecipe} />
-      <Box sx={{ marginTop: 2 }}>
-        <UserRecipeList userId={currentUserID} />
-      </Box>
+      <Box sx={{ maxWidth: '100%', overflow: 'hidden' }}>
+
+  <UserRecipeList authorUsername="amela2" />
+</Box>
       <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
         <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
           {snackbarMessage}

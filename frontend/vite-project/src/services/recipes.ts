@@ -32,10 +32,18 @@ const createRecipe = async (recipeData: RecipeRequestDTO): Promise<Recipe> => {
       });
   };
 
+
+  const getRecipesByAuthor = async (username: string): Promise<Recipe[]> => {
+    return appAxios.get(`/recipes/author/${username}`).then(
+      (response) => response.data
+    );
+  };
+
  const RecipeService = {
     getRecipes,
     getRecipeById,
-    createRecipe
+    createRecipe,
+    getRecipesByAuthor
 };
 
 export default RecipeService;
