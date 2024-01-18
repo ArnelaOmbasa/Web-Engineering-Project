@@ -27,6 +27,10 @@ export type Recipe = {
     role: UserRole;
   };
 
+  export type CommentRequestDTO = {
+    text: string;
+  };
+
  
   
   

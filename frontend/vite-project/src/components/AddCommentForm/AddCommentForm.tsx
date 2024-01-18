@@ -1,18 +1,35 @@
 // NewCommentForm.tsx
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import useCreateComment from '../../hooks/useCreateComment'; // Import the hook
+import { useQueryClient } from 'react-query';
+import { ApiError } from '../../hooks/useCreateComment';
 
 type Props = {
-  onCommentSubmit: (commentText: string) => void;
+  recipeId: string;
 };
 
-const NewCommentForm = ({ onCommentSubmit }: Props) => {
+const NewCommentForm = ({ recipeId }: Props) => {
   const [commentText, setCommentText] = useState('');
+  const queryClient = useQueryClient(); // Get the queryClient instance
+  const createComment = useCreateComment(); // Use the hook
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onCommentSubmit(commentText);
-    setCommentText('');
+    createComment.mutate(
+      { recipeId, comment: { text: commentText } },
+      {
+        onSuccess: () => {
+          // Invalidate and refetch comments query
+          queryClient.invalidateQueries(['comments', recipeId]); // Make sure the key here matches the one used in your useQuery
+          setCommentText(''); // Clear the text field on successful submission
+        },
+        onError: (error) => {
+          // Error handling logic here
+          console.log(error);
+        },
+      }
+    );
   };
 
   return (
@@ -26,9 +43,12 @@ const NewCommentForm = ({ onCommentSubmit }: Props) => {
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
       />
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+      <Button type="submit" variant="contained" sx={{ mt: 2 }} disabled={createComment.isLoading}>
         Post Comment
       </Button>
+      {createComment.isError && (
+        <div>An error occurred: {(createComment.error as ApiError).message}</div>
+      )}
     </Box>
   );
 };

@@ -18,7 +18,7 @@ function App() {
     <>
     <Navbar isLoggedIn={isLoggedIn} />
     <div className="root-content">
-    { /* <Routes>
+     <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -27,8 +27,8 @@ function App() {
         <Route path="/upload" element={<UploadRecipePage />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
 
-      </Routes>*/}
-      <AdminPage />
+      </Routes>
+      
     </div>
   </>
   

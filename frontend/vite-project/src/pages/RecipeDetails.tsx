@@ -20,6 +20,7 @@ const RecipeDetailPage = () => {
     isLoading,
     isError,
     error,
+    refetch
   } = useGetRecipeById(recipeId!); // Using non-null assertion operator `!` since we are handling undefined case
 
 
@@ -89,7 +90,7 @@ const RecipeDetailPage = () => {
             <CommentsList comments={recipe.comments} />
                     </Box>
             <Box sx={{ mt: 4 }}>
-              <NewCommentForm onCommentSubmit={handleNewComment} />
+              <NewCommentForm recipeId={recipeId!} />
             </Box>
           </Card>
         </Grid>

@@ -101,7 +101,7 @@ public class CommentController {
 
     // Add a comment to a recipe
     @RequestMapping(value = "/{recipeId}/comment", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<CommentsDTO> addCommentToRecipe(
             @PathVariable String recipeId,
             @RequestBody CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {

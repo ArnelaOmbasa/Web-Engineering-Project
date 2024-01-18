@@ -1,5 +1,5 @@
 import appAxios from "./appAxios";
-import { Comment } from "../utils/types";
+import { Comment, CommentRequestDTO } from "../utils/types";
 
 
 const getComments = async (): Promise<Comment[]> => {
@@ -11,9 +11,17 @@ const getComments = async (): Promise<Comment[]> => {
             return data;
         });
  }
+ const createComment = async (recipeId: string, commentData: CommentRequestDTO): Promise<Comment> => {
+    return appAxios.post(`/comments/${recipeId}/comment`, commentData).then(
+      (response) => response.data
+    ).catch((error) => {
+      console.error("Axios request failed:", error.response);
+    });}
+    
 
  const CommentService = {
-    getComments
+    getComments,
+    createComment
 };
 
 export default CommentService;
