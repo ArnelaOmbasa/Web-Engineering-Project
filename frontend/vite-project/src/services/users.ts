@@ -16,9 +16,18 @@ const getUsers = async (): Promise<User[]> => {
     return appAxios.get(`/users/${userId}`).then((response) => response.data);
 };
 
+// In UserService
+const updateUser = async (userId: string, userData: User): Promise<User> => {
+    // Make sure the endpoint and the HTTP method are correct.
+    return appAxios.put(`/users/${userId}`, userData).then(res => res.data);
+  };
+  
+  // ...other service functions
+  
  const UserService = {
     getUsers,
-    getUserById
+    getUserById,
+    updateUser
 };
 
 export default UserService;

@@ -1,29 +1,49 @@
-// UserProfile.js or UserProfile.tsx
-
+// pages/UserProfile.tsx
 import React, { useState } from 'react';
 import UserInfo from '../components/UserInfo';
 import EditUserForm from '../components/EditUserForm';
-import useGetUserById from '../hooks/useGetUserById'; // Import your new hook
-import { User } from '../utils/types'; // Assuming you have a User type
-import { ApiError } from '../hooks/useGetUserById'; // Assuming you have an ApiError type
+import useGetUserById from '../hooks/useGetUserById';
+import useUpdateUser from '../hooks/useUpdateUser';
+import { User } from '../utils/types';
+import { CircularProgress, Snackbar, Alert } from '@mui/material';
+import { ApiError } from '../hooks/useUpdateUser';
 
 const UserProfile = () => {
-  const userId = '6585ac7a7d1a9922c6feaea3'; // Replace with dynamic user ID as needed
-  const [isEditing, setIsEditing] = useState(false);
+  const userId = '6585c9303670d462790e0b5a'; 
   const { data: user, isLoading, isError, error } = useGetUserById(userId);
+  const [isEditing, setIsEditing] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  
+  const updateMutation = useUpdateUser({
+    onSuccess: () => {
+      setSnackbarMessage('User updated successfully');
+      setSnackbarOpen(true);
+      setIsEditing(false); // Close the form on success
+    },
+    onError: (error: Error) => {
+      setSnackbarMessage(error.message || 'Failed to update user');
+      setSnackbarOpen(true);
+    },
+  });
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  const handleUpdateUser = (updatedUser: User) => {
-    // TODO: Implement the update logic here
-    console.log('Updated user:', updatedUser);
-    setIsEditing(false);
+  const handleUpdateUser = async (updatedUser: User) => {
+    updateMutation.mutate({ userId, userData: updatedUser });
+  };
+
+  const handleCloseSnackbar = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CircularProgress />;
   }
 
   if (isError) {
@@ -45,6 +65,19 @@ const UserProfile = () => {
           )}
         </>
       )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={updateMutation.isSuccess ? 'success' : 'error'}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String userId, @RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.updateUser(userId, user));
     }

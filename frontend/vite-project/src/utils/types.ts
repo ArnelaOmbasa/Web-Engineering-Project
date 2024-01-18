@@ -25,6 +25,7 @@ export type Recipe = {
     username: string;
     email: string;
     role: UserRole;
+    password: string;
   };
 
   export type CommentRequestDTO = {
