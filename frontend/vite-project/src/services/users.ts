@@ -12,8 +12,13 @@ const getUsers = async (): Promise<User[]> => {
         });
  }
 
+ const getUserById = async (userId: string): Promise<User> => {
+    return appAxios.get(`/users/${userId}`).then((response) => response.data);
+};
+
  const UserService = {
-    getUsers
+    getUsers,
+    getUserById
 };
 
 export default UserService;

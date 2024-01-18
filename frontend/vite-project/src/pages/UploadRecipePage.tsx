@@ -15,7 +15,7 @@ const UploadRecipePage = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<AlertSeverity>('success');
   const queryClient = useQueryClient();
-  const currentUserID = 'user_id_1'; // Replace with the actual current user ID
+  const currentUserID = 'amela2'; // Replace with the actual current user ID
 
   const { mutate: createRecipe } = useCreateRecipe({
     onSuccess: () => {

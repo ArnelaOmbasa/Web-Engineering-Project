@@ -10,7 +10,6 @@ type Props = {
 const RecipeCard = ({ recipe }: Props) => {
   return (
 <Card sx={{ minWidth: 200, maxWidth: "sm", display: 'flex', flexDirection: 'column' }}>
-  <Container sx={{ flexGrow: 1 }} maxWidth="sm">
   <CardMedia
     component="img"
     height="140"
@@ -35,7 +34,6 @@ const RecipeCard = ({ recipe }: Props) => {
         View Details
       </Button>
       </CardActions>
-      </Container>
     </Card>
   );
 }
