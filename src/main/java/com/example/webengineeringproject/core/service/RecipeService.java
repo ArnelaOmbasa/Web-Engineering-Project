@@ -48,9 +48,9 @@ public class RecipeService {
         Recipe recipe = recipeRepository.save(recipeRequestDTO.toEntity());
         return new RecipeDTO(recipe);
     }*/
-public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, String ownerId) {
+public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO /*, String ownerId*/) {
     Recipe recipe = recipeRequestDTO.toEntity();
-    recipe.setOwnerId(ownerId); // Set the owner's ID
+  //  recipe.setOwnerId(ownerId); // Set the owner's ID
     Recipe savedRecipe = recipeRepository.save(recipe);
     return new RecipeDTO(savedRecipe);
 }

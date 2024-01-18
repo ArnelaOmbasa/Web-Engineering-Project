@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET, "/recipes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/comments/**").permitAll()
-                        .requestMatchers("/recipes/**").authenticated()
+                        .requestMatchers("/recipes/**").permitAll()
                         .requestMatchers("/users/**").permitAll()
                         .requestMatchers("/comments/**").permitAll()
                         .anyRequest().permitAll())

@@ -31,6 +31,12 @@ export type Recipe = {
     text: string;
   };
 
- 
+  export type RecipeRequestDTO = {
+    title: string;
+    description: string;
+    ingredients: string[];
+    imageURL: string;
+    ownerId: string;
+  }
   
   

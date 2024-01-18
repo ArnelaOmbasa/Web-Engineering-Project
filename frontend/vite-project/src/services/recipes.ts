@@ -1,5 +1,5 @@
 import appAxios from "./appAxios";
-import { Recipe } from "../utils/types";
+import { Recipe, RecipeRequestDTO } from "../utils/types";
 
 
 const getRecipes = async (): Promise<Recipe[]> => {
@@ -23,9 +23,19 @@ const getRecipes = async (): Promise<Recipe[]> => {
         });
 }
 
+const createRecipe = async (recipeData: RecipeRequestDTO): Promise<Recipe> => {
+    return appAxios.post(`/recipes`, recipeData).then(
+      (response) => {
+        const data = response.data;
+        console.log(data);
+        return data;
+      });
+  };
+
  const RecipeService = {
     getRecipes,
-    getRecipeById
+    getRecipeById,
+    createRecipe
 };
 
 export default RecipeService;

@@ -16,7 +16,7 @@ const style = {
 type RecipeUploadFormProps = {
   open: boolean;
   onClose: () => void;
-  onUpload: (title: string, description: string, ingredients: string[], imageURL: string) => void;
+  onUpload: (title: string, description: string, ingredients: string, imageURL: string) => void;
 };
 
 const RecipeUploadForm = ({ open, onClose, onUpload }: RecipeUploadFormProps) => {
@@ -27,8 +27,7 @@ const RecipeUploadForm = ({ open, onClose, onUpload }: RecipeUploadFormProps) =>
 
   const handleSubmit = () => {
     
-    const ingredientsArray = ingredients.split(',').map(item => item.trim());
-    onUpload(title, description, ingredientsArray, imageURL);
+    onUpload(title, description, ingredients, imageURL);
     onClose(); 
   };
 
