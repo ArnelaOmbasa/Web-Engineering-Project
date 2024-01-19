@@ -39,11 +39,16 @@ const createRecipe = async (recipeData: RecipeRequestDTO): Promise<Recipe> => {
     );
   };
 
+  const deleteRecipe = async (recipeId: string): Promise<void> => {
+    return appAxios.delete(`/recipes/${recipeId}`).then(res => res.data);
+  };
+
  const RecipeService = {
     getRecipes,
     getRecipeById,
     createRecipe,
-    getRecipesByAuthor
+    getRecipesByAuthor,
+    deleteRecipe
 };
 
 export default RecipeService;

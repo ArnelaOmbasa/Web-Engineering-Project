@@ -76,7 +76,7 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority('ADMIN')")
+   // @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId) {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

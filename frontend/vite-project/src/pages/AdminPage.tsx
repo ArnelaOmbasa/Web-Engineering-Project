@@ -11,6 +11,7 @@ import useGetAllComments from '../hooks/useGetAllComments'; // Import the hook f
 import useGetAllUsers from '../hooks/useGetAllUsers'; // Make sure to import your hook
 import useDeleteUser from '../hooks/useDeleteUser'; // Import the hook for deleting users
 import { Snackbar, Alert } from '@mui/material';
+import useDeleteRecipe from '../hooks/useDeleteRecipe';
 
 
 
@@ -44,14 +45,28 @@ function AdminPage() {
     deleteMutation.mutate(userId);
   };
 
+  const deleteRecipeMutation = useDeleteRecipe({
+    onSuccess: () => {
+      setSnackbarMessage('Recipe deleted successfully');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      // Optionally, refetch recipes or update local state here
+    },
+    onError: (error) => {
+      setSnackbarMessage(error.message || 'Error deleting recipe');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    },
+  });
+
+  const handleDeleteRecipe = (recipeId: string) => {
+    deleteRecipeMutation.mutate(recipeId);
+  };
+
   const handleListItemClick = (content: string) => {
     setSelectedContent(content);
   };
 
-  const handleDeleteRecipe = (recipeId: string) => {
-    console.log('Delete recipe with ID:', recipeId);
-    // Implement the delete functionality here
-  };
 
   const handleDeleteComment = (commentId: string) => {
     console.log('Delete comment with ID:', commentId);
