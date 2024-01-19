@@ -1,24 +1,27 @@
+// Navbar.tsx
+
 import React from 'react';
 import { AppBar, Tabs, Tab, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 interface NavbarProps {
   isLoggedIn: boolean;
+  isAdmin: boolean; // Add a prop to check if the user is an admin
 }
 
-const Navbar = ({ isLoggedIn }: NavbarProps) => {
+const Navbar = ({ isLoggedIn, isAdmin }: NavbarProps) => {
   return (
-    <AppBar position="static" sx={{ width: '100%', maxWidth: '100%', position: 'absolute', top: 0, left: 0 }}>
+    <AppBar position="fixed" className="AppBar-root">
       <Toolbar>
-      <Typography variant="h6" sx={{ flexGrow: 0 }}>
-      CookeryCommunity
-
+        <Typography variant="h6" sx={{ flexGrow: 0 }}>
+          CookeryCommunity
         </Typography>
         <Typography sx={{ flexGrow: 1 }} />
 
         {isLoggedIn ? (
           <Tabs>
-          <Tab label="Home" component={Link} to="/home" />
+            <Tab label="Home" component={Link} to="/home" />
+            {isAdmin && <Tab label="Admin" component={Link} to="/admin" />} // Conditionally render the Admin tab
             <Tab label="My Profile" component={Link} to="/profile" />
             <Tab label="Upload Recipe" component={Link} to="/upload" />
             <Tab label="Logout" component={Link} to="/" />

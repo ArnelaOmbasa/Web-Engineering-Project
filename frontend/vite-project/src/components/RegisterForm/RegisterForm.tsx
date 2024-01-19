@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { TextField, Button, Paper, Container, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { UserRole } from '../../UserRole'; // Adjust the import path as needed
+import { User, UserRole } from '../../utils/types'; // Adjust the import path as needed
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState<UserRole>(UserRole.User);
+  const [role, setRole] = useState<UserRole>('USER'); // Default to 'USER'
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,7 +56,8 @@ const RegisterForm = () => {
                 label="Role"
                 onChange={(e) => setRole(e.target.value as UserRole)}
               >
-                {Object.values(UserRole).map((role) => (
+                {/* Map over the UserRole type */}
+                {(['ADMIN', 'USER'] as UserRole[]).map((role) => (
                   <MenuItem key={role} value={role}>{role}</MenuItem>
                 ))}
               </Select>

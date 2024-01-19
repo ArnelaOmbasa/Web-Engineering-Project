@@ -1,3 +1,6 @@
+/* App.css */
+
+
 
 #root {
   max-width: 1280px;
@@ -6,51 +9,44 @@
   text-align: center;
 }
 
-/* Ensure the AppBar takes full width and is fixed */
+/* AppBar styling */
 .AppBar-root {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1100; /* Default
-for MUI AppBar */
+  z-index: 1100;
 }
 
-/* Use padding-top on the main content to prevent overlap with the AppBar */
+/* Style for content that needs to be pushed down below AppBar */
 .root-content {
-padding-top: 64px; 
-max-width: 1280px;
-margin: 0 auto;
-text-align: center;
-}
-
-
-
-
-
-
-
-
-/*ovdje*/
-#root {
+  padding-top: 64px; 
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  }
+
+/* AdminPage-root should not be globally applied, only in AdminPage component */
+.AdminPage-root {
+  display: flex;
+  paddingTop: 64px; /* Height of AppBar */
 }
 
-/* Remove any width constraints from .navbar if not necessary 
-.navbar {
-  width: 100%;
-  margin: 0;
-}*/
-.navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000; /* Ensure it appears on top of other elements */
+/* Drawer paper adjustment */
+.MuiDrawer-paper {
+  margin-top: 64px; /* Height of AppBar */
+  height: calc(100% - 64px); /* Adjust height accordingly */
 }
+
+/* Centering styles for main content within each page */
+.page-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Full height of its container */
+}
+
+
 
 /* Apply constraints to specific content areas */
 .content, .root-content {
@@ -58,9 +54,7 @@ text-align: center;
   margin: 0 auto;
   text-align: center;
 }
-.AppBar-root {
-  width: 100%; /* Ensure the AppBar takes full width */
-}
+
 
 .Tabs-root {
   justify-content: space-between; /* This will push your tabs to occupy all available space */
@@ -70,53 +64,3 @@ text-align: center;
   justify-content:
 flex-end; /* Aligns the tabs (menu items) to the right */
 }
-
-/*
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.navbar {
-  max-width: none;
-  margin: 0;
-  width: 100%;
-}
-*/
-
-
-
-
-
-

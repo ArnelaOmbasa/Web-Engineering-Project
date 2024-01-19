@@ -103,15 +103,14 @@ function AdminPage() {
   
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
+    <Box className="AdminPage-root">
+  <Drawer
+    variant="permanent"
+    className="AdminPage-drawer"
+    classes={{
+      paper: "AdminPage-drawerPaper",
+    }}
+  >
         <Toolbar />
         <List>
           {['Recipes', 'Comments', 'Users'].map((text, index) => (
@@ -130,9 +129,10 @@ function AdminPage() {
         </List>
       </Drawer>
       <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
+    component="main"
+    sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+    // Remove paddingTop here since we've handled it in CSS
+  >
         <Toolbar />
         {selectedContent === 'Recipes' && (
           <>
