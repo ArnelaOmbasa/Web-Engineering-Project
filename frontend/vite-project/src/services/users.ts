@@ -22,12 +22,15 @@ const updateUser = async (userId: string, userData: User): Promise<User> => {
     return appAxios.put(`/users/${userId}`, userData).then(res => res.data);
   };
   
-  // ...other service functions
+  const deleteUser = async (userId: string): Promise<void> => {
+    await appAxios.delete(`/users/${userId}`);
+};
   
  const UserService = {
     getUsers,
     getUserById,
-    updateUser
+    updateUser,
+    deleteUser
 };
 
 export default UserService;

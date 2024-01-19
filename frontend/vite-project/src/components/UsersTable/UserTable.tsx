@@ -33,9 +33,9 @@ function UserTable(props: UserTableProps) {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.role}</TableCell>
               <TableCell>
-                <IconButton onClick={() => onDelete(user.userId)} color="error">
-                  <DeleteIcon />
-                </IconButton>
+              <IconButton onClick={() => onDelete(user.userId)} color="error">
+      <DeleteIcon />
+    </IconButton>
               </TableCell>
             </TableRow>
           ))}

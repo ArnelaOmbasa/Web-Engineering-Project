@@ -1,25 +1,48 @@
 import React, { useState } from 'react';
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AlertColor, Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import CommentIcon from '@mui/icons-material/Comment';
 import PeopleIcon from '@mui/icons-material/People';
 import RecipeTable from '../components/RecipeTable';
 import CommentTable from '../components/CommentTable';
 import UserTable from '../components/UsersTable';
-import { User } from '../utils/types';
 import useGetAllRecipes from '../hooks/useGetAllRecipes';
 import useGetAllComments from '../hooks/useGetAllComments'; // Import the hook for comments
 import useGetAllUsers from '../hooks/useGetAllUsers'; // Make sure to import your hook
+import useDeleteUser from '../hooks/useDeleteUser'; // Import the hook for deleting users
+import { Snackbar, Alert } from '@mui/material';
+
 
 
 const drawerWidth = 240;
 
 function AdminPage() {
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('success');
   const [selectedContent, setSelectedContent] = useState('');
   const { data: recipes, isLoading, isError, error } = useGetAllRecipes();
   const { data: comments, isLoading: isLoadingComments, isError: isErrorComments, error: errorComments } = useGetAllComments(); // Use the custom hook to fetch comments
   const { data: users, isLoading: isLoadingUsers, isError: isErrorUsers, error: errorUsers } = useGetAllUsers(); // Use the custom hook to fetch users
+  
+  const deleteMutation = useDeleteUser({
+    onSuccess: () => {
+      setSnackbarMessage('User deleted successfully');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      // Optionally, refetch users or update local state here
+    },
+    onError: (error) => {
+      setSnackbarMessage(error.message || 'Error deleting user');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    },
+  });
 
+  const handleDeleteUser = (userId: string) => {
+    deleteMutation.mutate(userId);
+  };
 
   const handleListItemClick = (content: string) => {
     setSelectedContent(content);
@@ -34,11 +57,16 @@ function AdminPage() {
     console.log('Delete comment with ID:', commentId);
     // Implement the delete functionality here
   };
-
-  const handleDeleteUser = (userId: string) => {
-    console.log('Delete user with ID:', userId);
-    // Implement the delete functionality here
+  const handleCloseSnackbar = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
+  
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -105,12 +133,25 @@ function AdminPage() {
             {!isLoadingUsers && !isErrorUsers && users && (
               <UserTable
                 users={users}
-                onDelete={handleDeleteComment}
-                // Replace the console.log with your delete logic
+                onDelete={handleDeleteUser}
               />
             )}
           </>
         )}
+
+<Snackbar
+  open={snackbarOpen}
+  autoHideDuration={6000}
+  onClose={handleCloseSnackbar}
+>
+  <Alert
+    onClose={handleCloseSnackbar}
+    severity={snackbarSeverity}
+    sx={{ width: '100%' }}
+  >
+    {snackbarMessage}
+  </Alert>
+</Snackbar>
       </Box>
     </Box>
   );
