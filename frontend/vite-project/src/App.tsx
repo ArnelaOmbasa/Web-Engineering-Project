@@ -13,7 +13,7 @@ import './App.css';
 import { Box } from '@mui/system';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // You might want to set this based on actual authentication later
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // You might want to set this based on actual authentication later
   const [isAdmin, setIsAdmin] = useState(true); // You might want to set this based on actual authentication later
   return (
     <>

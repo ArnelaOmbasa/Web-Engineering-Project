@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm, Controller  } from 'react-hook-form';
 import { TextField, Button, Paper, Container, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { User, UserRole } from '../../utils/types'; // Adjust the import path as needed
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState<UserRole>('USER'); // Default to 'USER'
+  const { register, handleSubmit, control, formState: { errors } } = useForm<User>();
+  
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Handle registration logic here
-    console.log('Username:', username, 'Password:', password, 'Email:', email, 'Role:', role);
+  const onSubmit = (data: User) => {
+    console.log(data);
     // Typically, you would send a request to your server here
   };
 
@@ -19,15 +16,14 @@ const RegisterForm = () => {
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
         <Paper elevation={6} style={{ padding: 20, width: '100%', maxWidth: 400 }}>
-          <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
             <TextField
               label="Username"
               variant="outlined"
               fullWidth
               required
               margin="normal"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              {...register('username')}
             />
             <TextField
               label="Password"
@@ -36,8 +32,7 @@ const RegisterForm = () => {
               fullWidth
               required
               margin="normal"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register('password')}
             />
             <TextField
               label="Email"
@@ -46,21 +41,25 @@ const RegisterForm = () => {
               fullWidth
               required
               margin="normal"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register('email')}
             />
-            <FormControl fullWidth margin="normal">
+           <FormControl fullWidth margin="normal">
               <InputLabel>Role</InputLabel>
-              <Select
-                value={role}
-                label="Role"
-                onChange={(e) => setRole(e.target.value as UserRole)}
-              >
-                {/* Map over the UserRole type */}
-                {(['ADMIN', 'USER'] as UserRole[]).map((role) => (
-                  <MenuItem key={role} value={role}>{role}</MenuItem>
-                ))}
-              </Select>
+              <Controller
+                name="role"
+                control={control}
+                defaultValue="USER"
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    label="Role"
+                  >
+                    {(['ADMIN', 'USER'] as UserRole[]).map((role) => (
+                      <MenuItem key={role} value={role}>{role}</MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
             </FormControl>
             <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 20 }}>
               Register
