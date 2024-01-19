@@ -55,8 +55,8 @@ const UploadRecipePage = () => {
   };
 
   return (
-    <Box sx={{ padding: 2 }}>
-      <Button variant="contained" color="primary" onClick={handleOpenModal} sx={{ marginBottom: 2 }}>
+    <Box sx={{ padding: 2}}>
+      <Button variant="contained" color="primary" onClick={handleOpenModal} sx={{ marginBottom: 5 }}>
         Add New Recipe
       </Button>
       <RecipeUploadForm open={modalOpen} onClose={handleCloseModal} onUpload={handleUploadRecipe} />

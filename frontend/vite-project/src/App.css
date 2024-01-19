@@ -1,6 +1,8 @@
 /* App.css */
 
-
+.title {
+  margin-bottom: 20px; /* Or however much space you want */
+}
 
 #root {
   max-width: 1280px;
