@@ -4,14 +4,12 @@ import { TextField, Button, Paper, Container, Box, FormControl, InputLabel, Sele
 import * as yup from 'yup';
 import { UserRole } from '../../utils/types'; // Adjust the import path as needed
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../store/authSlice'; // Adjust the import path as needed
+import { RootState } from '../../store';
+import { UnknownAction } from '@reduxjs/toolkit';
+import { RegisterFormData } from '../../utils/types';
 
-// Define the form data type
-type RegisterFormData = {
-  username: string;
-  password: string;
-  email: string;
-  role: UserRole;
-};
 
 // Yup schema
 const schema = yup.object({
@@ -26,15 +24,23 @@ const RegisterForm = () => {
     resolver: yupResolver(schema) as unknown as Resolver<RegisterFormData>
   });
 
+  const dispatch = useDispatch();
+  const { loading, userToken, error, success} = useSelector((state: RootState) => state.auth); // Adjust this selector based on your actual state structure
+
   const onSubmit = (data: RegisterFormData) => {
-    console.log(data);
-    // Typically, you would send a request to your server here
+    dispatch(registerUser(data) as unknown as UnknownAction); // Call the async thunk with form data
   };
+  
 
   return (
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
         <Paper elevation={6} style={{ padding: 20, width: '100%', maxWidth: 400 }}>
+          {error && (
+            <div style={{ color: 'red', margin: '10px 0' }}>
+              Unable to register. {error}
+            </div>
+          )}
           <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
             <TextField
               label="Username"
@@ -85,8 +91,15 @@ const RegisterForm = () => {
               />
               <FormHelperText>{errors.role?.message}</FormHelperText>
             </FormControl>
-            <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 20 }}>
-              Register
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              style={{ marginTop: 20 }}
+              disabled={loading}
+            >
+              {loading ? 'Submitting...' : 'Register'}
             </Button>
           </form>
         </Paper>
