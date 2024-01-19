@@ -9,7 +9,8 @@ import { registerUser } from '../../store/authSlice'; // Adjust the import path 
 import { RootState } from '../../store';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { RegisterFormData } from '../../utils/types';
-
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // Yup schema
 const schema = yup.object({
@@ -30,6 +31,15 @@ const RegisterForm = () => {
   const onSubmit = (data: RegisterFormData) => {
     dispatch(registerUser(data) as unknown as UnknownAction); // Call the async thunk with form data
   };
+
+  const navigate = useNavigate()
+useEffect(() => {
+   // Redirect user to login page if registration was successful
+   if (success) navigate('/login')
+   // Redirect authenticated user to home screen
+   if (userToken) navigate('/home')
+}, [navigate, userToken, success])
+
   
 
   return (
