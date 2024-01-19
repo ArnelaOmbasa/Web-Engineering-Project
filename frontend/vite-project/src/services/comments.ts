@@ -19,9 +19,14 @@ const getComments = async (): Promise<Comment[]> => {
     });}
     
 
+    const deleteComment = async (recipeId: string, commentText: string): Promise<void> => {
+      return appAxios.delete(`/comments/${recipeId}/${commentText}`).then(res => res.data);
+    };
+
  const CommentService = {
     getComments,
-    createComment
+    createComment,
+    deleteComment
 };
 
 export default CommentService;

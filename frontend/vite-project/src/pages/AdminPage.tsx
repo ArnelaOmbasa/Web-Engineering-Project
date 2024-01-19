@@ -12,6 +12,7 @@ import useGetAllUsers from '../hooks/useGetAllUsers'; // Make sure to import you
 import useDeleteUser from '../hooks/useDeleteUser'; // Import the hook for deleting users
 import { Snackbar, Alert } from '@mui/material';
 import useDeleteRecipe from '../hooks/useDeleteRecipe';
+import useDeleteComment from '../hooks/useDeleteComment'; // Import the hook for deleting comments
 
 
 
@@ -62,16 +63,34 @@ function AdminPage() {
   const handleDeleteRecipe = (recipeId: string) => {
     deleteRecipeMutation.mutate(recipeId);
   };
+  // Add the delete comment mutation
+  const deleteCommentMutation = useDeleteComment({
+    onSuccess: () => {
+      setSnackbarMessage('Comment deleted successfully');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      // Optionally, refetch comments or update local state here
+    },
+    onError: (error) => {
+      setSnackbarMessage(error.message || 'Error deleting comment');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    },
+  });
+
+  // Existing handleDeleteUser and handleDeleteRecipe methods
+
+  // New handleDeleteComment method
+  const handleDeleteComment = (recipeId: string, commentText: string) => {
+    deleteCommentMutation.mutate({ recipeId, commentText });
+  };
 
   const handleListItemClick = (content: string) => {
     setSelectedContent(content);
   };
 
 
-  const handleDeleteComment = (commentId: string) => {
-    console.log('Delete comment with ID:', commentId);
-    // Implement the delete functionality here
-  };
+ 
   const handleCloseSnackbar = (
     event: React.SyntheticEvent | Event,
     reason?: string
