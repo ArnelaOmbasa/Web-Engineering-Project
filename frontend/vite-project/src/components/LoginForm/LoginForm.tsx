@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { TextField, Button, Paper, Grid, Typography, Container } from '@mui/material';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { TextField, Button, Paper, Typography, Container } from '@mui/material';
 
+// Define the form data type
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 
-const StyledPaper = styled(Paper)`
-  padding: 20px;
-  margin-top: 50px;
-`;
+// Yup schema
+const schema = yup.object({
+  email: yup.string().email('Invalid email format').required('Email is required'),
+  password: yup.string().required('Password is required')
+}).required();
+
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+    resolver: yupResolver(schema)
+  });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Handle login logic here
-    console.log('Email:', email, 'Password:', password);
+  const onSubmit = (data: LoginFormData) => {
+    console.log(data);
     // Typically, you would send a request to your server here
   };
 
@@ -24,37 +32,33 @@ const LoginForm = () => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="email"
-            name="email"
-            autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
+        <TextField
+  variant="outlined"
+  margin="normal"
+  fullWidth
+  label="Email Address"
+  autoFocus
+  error={Boolean(errors.email)}
+  helperText={errors.email?.message}
+  {...register('email')}
+/>
+<TextField
+  variant="outlined"
+  margin="normal"
+  fullWidth
+  label="Password"
+  type="password"
+  error={Boolean(errors.password)}
+  helperText={errors.password?.message}
+  {...register('password')}
+/>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            style={{ marginTop: 20, marginBottom: 20 }}
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign In
           </Button>
