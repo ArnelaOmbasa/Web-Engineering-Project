@@ -20,11 +20,11 @@ const Navbar = ({ isLoggedIn, isAdmin }: NavbarProps) => {
 
         {isLoggedIn ? (
           <Tabs>
-            <Tab label="Home" component={Link} to="/home" />
-            {isAdmin && <Tab label="Admin" component={Link} to="/admin" />} // Conditionally render the Admin tab
-            <Tab label="My Profile" component={Link} to="/profile" />
-            <Tab label="Upload Recipe" component={Link} to="/upload" />
-            <Tab label="Logout" component={Link} to="/" />
+            <Tab label="Home" component={Link} to="/home" style={{ color: 'inherit' }}/>
+            {isAdmin && <Tab label="Admin" component={Link} to="/admin" style={{ color: 'inherit' }}/>} 
+            <Tab label="My Profile" component={Link} to="/profile" style={{ color: 'inherit' }}/>
+            <Tab label="Upload Recipe" component={Link} to="/upload" style={{ color: 'inherit' }}/>
+            <Tab label="Logout" component={Link} to="/" style={{ color: 'inherit' }} />
           </Tabs>
         ) : (
           <>
