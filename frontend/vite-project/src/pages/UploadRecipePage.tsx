@@ -6,6 +6,9 @@ import { Button, Box, Snackbar, Alert } from '@mui/material';
 import useCreateRecipe from '../hooks/useCreateRecipe';
 import { useQueryClient } from 'react-query';
 import { RecipeRequestDTO } from '../utils/types';
+import { RootState } from '../store';
+import { useSelector } from 'react-redux';
+
 
 type AlertSeverity = 'error' | 'warning' | 'info' | 'success';
 
@@ -15,7 +18,8 @@ const UploadRecipePage = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<AlertSeverity>('success');
   const queryClient = useQueryClient();
-  const currentUserID = 'amela2'; // Replace with the actual current user ID
+
+  const currentUserUsername = useSelector((state: RootState) => state.auth.username);
 
   const { mutate: createRecipe } = useCreateRecipe({
     onSuccess: () => {
@@ -42,7 +46,7 @@ const UploadRecipePage = () => {
       description,
       ingredients: ingredients.split(',').map((ingredient: string) => ingredient.trim()),
       imageURL,
-      ownerId: currentUserID,
+      ownerId: currentUserUsername || '',
     };
     createRecipe(recipeData);
   };
@@ -62,7 +66,7 @@ const UploadRecipePage = () => {
       <RecipeUploadForm open={modalOpen} onClose={handleCloseModal} onUpload={handleUploadRecipe} />
       <Box sx={{ maxWidth: '100%', overflow: 'hidden' }}>
 
-  <UserRecipeList authorUsername="amela2" />
+  <UserRecipeList authorUsername={currentUserUsername ?? ''} />
 </Box>
       <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
         <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>

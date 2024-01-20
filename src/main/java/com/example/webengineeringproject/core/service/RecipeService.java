@@ -4,10 +4,8 @@ import com.example.webengineeringproject.core.exceptions.repository.ResourceNotF
 import com.example.webengineeringproject.core.model.Comment;
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.repository.RecipeRepository;
-import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -48,9 +46,9 @@ public class RecipeService {
         Recipe recipe = recipeRepository.save(recipeRequestDTO.toEntity());
         return new RecipeDTO(recipe);
     }*/
-public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO /*, String ownerId*/) {
+public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, /*, String ownerId*/String ownerId) {
     Recipe recipe = recipeRequestDTO.toEntity();
-  //  recipe.setOwnerId(ownerId); // Set the owner's ID
+    recipe.setOwnerId(ownerId); // Set the owner's ID
     Recipe savedRecipe = recipeRepository.save(recipe);
     return new RecipeDTO(savedRecipe);
 }

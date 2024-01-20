@@ -38,11 +38,11 @@ public class RecipeController {
     @RequestMapping(method = RequestMethod.POST)
     //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> createRecipe(
-            @RequestBody RecipeRequestDTO recipeRequestDTO/*,
-            Authentication authentication*/) {
+            @RequestBody RecipeRequestDTO recipeRequestDTO,
+            Authentication authentication) {
 
-       // String ownerId = authentication.getName(); // Get the owner's ID from authentication
-        RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO/*, ownerId*/);
+       String ownerId = authentication.getName(); // Get the owner's ID from authentication
+        RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO, ownerId);
         return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
     }
 
