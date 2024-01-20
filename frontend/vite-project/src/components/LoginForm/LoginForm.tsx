@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { TextField, Button, Paper, Typography, Container } from '@mui/material';
+import { LoginFormData } from '../../utils/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { login } from '../../store/authSlice';
+import { AppDispatch } from '../../store'; 
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// Define the form data type
-type LoginFormData = {
-  email: string;
-  password: string;
-};
 
 // Yup schema
 const schema = yup.object({
@@ -21,9 +23,22 @@ const LoginForm = () => {
     resolver: yupResolver(schema)
   });
 
+  const { loading, userToken, error } = useSelector((state: RootState) => state.auth);
+
+  const navigate = useNavigate()
+
+
+ useEffect(() => {
+   if (userToken) {
+     navigate('/home')
+   }
+ }, [navigate, userToken])
+
+
+  const dispatch = useDispatch<AppDispatch>(); // Use the custom AppDispatch type
+
   const onSubmit = (data: LoginFormData) => {
-    console.log(data);
-    // Typically, you would send a request to your server here
+    dispatch(login(data));
   };
 
   return (
@@ -33,34 +48,43 @@ const LoginForm = () => {
           Sign In
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
-        <TextField
-  variant="outlined"
-  margin="normal"
-  fullWidth
-  label="Email Address"
-  autoFocus
-  error={Boolean(errors.email)}
-  helperText={errors.email?.message}
-  {...register('email')}
-/>
-<TextField
-  variant="outlined"
-  margin="normal"
-  fullWidth
-  label="Password"
-  type="password"
-  error={Boolean(errors.password)}
-  helperText={errors.password?.message}
-  {...register('password')}
-/>
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              <h4 className="alert-heading">Unable to log in!</h4>
+              <p>{error}</p>
+              <hr />
+              <p className="mb-0">Something went wrong, please try again.</p>
+            </div>
+          )}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Email Address"
+            autoFocus
+            error={Boolean(errors.email)}
+            helperText={errors.email?.message}
+            {...register('email')}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            label="Password"
+            type="password"
+            error={Boolean(errors.password)}
+            helperText={errors.password?.message}
+            {...register('password')}
+          />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
+            disabled={loading}
           >
-            Sign In
+            {loading ? 'Submitting...' : 'Sign In'}
           </Button>
         </form>
       </Paper>

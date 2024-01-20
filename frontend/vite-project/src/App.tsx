@@ -11,13 +11,14 @@ import RecipeDetailPage from './pages/RecipeDetails';
 import AdminPage from './pages/AdminPage';
 import './App.css';
 import { Box } from '@mui/system';
+import { useSelector } from 'react-redux';
+import { RootState } from './store';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // You might want to set this based on actual authentication later
-  const [isAdmin, setIsAdmin] = useState(true); // You might want to set this based on actual authentication later
+  
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
+       <Navbar/>
       <Box className="root-content">
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />

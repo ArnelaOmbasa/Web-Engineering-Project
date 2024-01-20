@@ -1,15 +1,15 @@
-// Navbar.tsx
-
 import React from 'react';
 import { AppBar, Tabs, Tab, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store'; // Adjust the import path as needed
 
-interface NavbarProps {
-  isLoggedIn: boolean;
-  isAdmin: boolean; // Add a prop to check if the user is an admin
-}
+const Navbar = () => {
+  
+  // useSelector hook to access the Redux state
+  const { userToken } = useSelector((state: RootState) => state.auth);
+  //const isAdmin = userInfo?.isAdmin; // Assuming isAdmin is a property of userInfo
 
-const Navbar = ({ isLoggedIn, isAdmin }: NavbarProps) => {
   return (
     <AppBar position="fixed" className="AppBar-root">
       <Toolbar>
@@ -18,12 +18,13 @@ const Navbar = ({ isLoggedIn, isAdmin }: NavbarProps) => {
         </Typography>
         <Typography sx={{ flexGrow: 1 }} />
 
-        {isLoggedIn ? (
+        {userToken ? (
           <Tabs>
             <Tab label="Home" component={Link} to="/home" style={{ color: 'inherit' }}/>
-            {isAdmin && <Tab label="Admin" component={Link} to="/admin" style={{ color: 'inherit' }}/>} 
+            {/*isAdmin && <Tab label="Admin" component={Link} to="/admin" style={{ color: 'inherit' }}/>*/} 
             <Tab label="My Profile" component={Link} to="/profile" style={{ color: 'inherit' }}/>
             <Tab label="Upload Recipe" component={Link} to="/upload" style={{ color: 'inherit' }}/>
+            {/* Adjust the Logout logic as needed, perhaps to call a logout function */}
             <Tab label="Logout" component={Link} to="/" style={{ color: 'inherit' }} />
           </Tabs>
         ) : (

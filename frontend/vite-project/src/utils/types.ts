@@ -44,4 +44,10 @@ export type Recipe = {
     role: UserRole;
   };
   
+  // Define the form data type
+export type LoginFormData = {
+  email: string;
+  password: string;
+};
+
   
