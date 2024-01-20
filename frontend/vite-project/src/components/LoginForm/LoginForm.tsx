@@ -29,6 +29,8 @@ const LoginForm = () => {
 
 
  useEffect(() => {
+  console.log("User Token Updated: ", userToken); // Add this line to log the userToken
+
    if (userToken) {
      navigate('/home')
    }

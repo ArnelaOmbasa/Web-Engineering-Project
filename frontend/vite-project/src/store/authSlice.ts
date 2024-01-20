@@ -21,7 +21,17 @@ const initialState = {
 const authSlice = createSlice({
    name: 'auth',
    initialState,
-   reducers: {},
+   reducers: {
+    // Logout action
+    logout: (state) => {
+        state.loading = false;
+        state.userInfo = null;
+        state.userToken = null;
+        state.error = null;
+        state.success = false;
+        localStorage.removeItem('userToken'); // Clear token from local storage
+    },
+},
    extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state) => {
         state.loading = true
@@ -35,6 +45,11 @@ const authSlice = createSlice({
         state.loading = false
         state.error = action.payload
     })
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.userToken = action.payload.jwt; 
+      state.loading = false;
+      state.userInfo = action.payload.user; 
+    });
 }
 
 })
@@ -76,5 +91,6 @@ export const registerUser = createAsyncThunk(
  );
  
   
+ export const { logout } = authSlice.actions;
 
 export default authSlice.reducer

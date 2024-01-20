@@ -3,11 +3,16 @@ import { AppBar, Tabs, Tab, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store'; // Adjust the import path as needed
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/authSlice'; // Adjust the import path as needed
 
 const Navbar = () => {
+
+  // useDispatch hook to dispatch an action
+  const dispatch = useDispatch();
   
   // useSelector hook to access the Redux state
-  const { userToken } = useSelector((state: RootState) => state.auth);
+  const { userToken } = useSelector((state: RootState) => (state as RootState).auth);
   //const isAdmin = userInfo?.isAdmin; // Assuming isAdmin is a property of userInfo
 
   return (
@@ -25,7 +30,8 @@ const Navbar = () => {
             <Tab label="My Profile" component={Link} to="/profile" style={{ color: 'inherit' }}/>
             <Tab label="Upload Recipe" component={Link} to="/upload" style={{ color: 'inherit' }}/>
             {/* Adjust the Logout logic as needed, perhaps to call a logout function */}
-            <Tab label="Logout" component={Link} to="/" style={{ color: 'inherit' }} />
+            <Tab label="Logout" component={Link} to="/" style={{ color: 'inherit' }} onClick={() => dispatch(logout())}
+/>
           </Tabs>
         ) : (
           <>
