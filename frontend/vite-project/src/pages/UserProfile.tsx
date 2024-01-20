@@ -7,10 +7,23 @@ import useUpdateUser from '../hooks/useUpdateUser';
 import { User } from '../utils/types';
 import { CircularProgress, Snackbar, Alert } from '@mui/material';
 import { ApiError } from '../hooks/useUpdateUser';
+import { RootState } from '../store';
+import { useSelector } from 'react-redux';
 
 const UserProfile = () => {
-  const userId = '6585c9303670d462790e0b5a'; 
-  const { data: user, isLoading, isError, error } = useGetUserById(userId);
+
+
+ // Get userId from the Redux store
+ const userId = useSelector((state: RootState) => state.auth.userId);
+  
+ // If there is no userId, we can assume the user is not logged in or the token has not been decoded yet
+ if (!userId) {
+   return <div>Please login to view this page.</div>;
+ }
+ 
+
+
+const { data: user, isLoading, isError, error } = useGetUserById(userId);
   const [isEditing, setIsEditing] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
