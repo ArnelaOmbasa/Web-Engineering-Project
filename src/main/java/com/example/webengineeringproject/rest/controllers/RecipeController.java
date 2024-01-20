@@ -65,7 +65,7 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable String recipeId, @RequestBody RecipeRequestDTO recipeRequestDTO) {
         RecipeDTO updatedRecipe = recipeService.updateRecipe(recipeId, recipeRequestDTO);
         if (updatedRecipe != null) {

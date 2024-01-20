@@ -11,8 +11,7 @@ import RecipeDetailPage from './pages/RecipeDetails';
 import AdminPage from './pages/AdminPage';
 import './App.css';
 import { Box } from '@mui/system';
-import { useSelector } from 'react-redux';
-import { RootState } from './store';
+import ProtectedRoute from './utils/ProtectedRoutes';
 
 function App() {
   
@@ -25,10 +24,12 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/upload" element={<UploadRecipePage />} />
           <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
           <Route path="/admin" element={<AdminPage />} /> 
+          </Route>
         </Routes>
         </Box>
     </>
