@@ -18,20 +18,21 @@ function CommentTable(props: CommentTableProps) {
       <Table sx={{ minWidth: 650 }} aria-label="comment table">
         <TableHead>
           <TableRow>
-            <TableCell>Comment ID</TableCell>
+            
             <TableCell>Comment Text</TableCell>
+            <TableCell>Author</TableCell> 
+            <TableCell>RecipeId</TableCell> 
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {comments.map((comment) => (
             <TableRow key={comment.commentId}>
-              <TableCell component="th" scope="row">
-                {comment.commentId}
-              </TableCell>
+              
               <TableCell>{comment.text}</TableCell>
+              <TableCell>{comment.authorId}</TableCell> 
+              <TableCell>{comment.recipeId}</TableCell> 
               <TableCell>
-                {/* Update the onClick to pass both recipeId and commentText */}
                 <IconButton onClick={() => onDelete(comment.recipeId, comment.text)} color="error">
                   <DeleteIcon />
                 </IconButton>
