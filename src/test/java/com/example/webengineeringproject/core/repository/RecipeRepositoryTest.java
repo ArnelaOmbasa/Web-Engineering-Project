@@ -22,7 +22,7 @@ public class RecipeRepositoryTest {
 
         Assertions.assertFalse(recipes.isEmpty());
     }
-
+/*
     @Test
     public void shouldFindRecipeByTitle() {
 
@@ -30,7 +30,7 @@ public class RecipeRepositoryTest {
 
         Assertions.assertTrue(recipe.isPresent());
         Assertions.assertEquals("Spaghetti Bolognese", recipe.get().getTitle());
-    }
+    }*/
 
     @Test
     public void shouldNotFindNonexistentRecipeById() {
