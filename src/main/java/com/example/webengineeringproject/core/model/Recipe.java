@@ -14,6 +14,7 @@ public class Recipe {
     private String description;
     private List<String> ingredients;
     private String imageURL;
+    private String ownerId;
 
     private List<String> comments = new ArrayList<String>();
 
@@ -25,6 +26,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.imageURL = imageURL;
         this.comments = comments;
+        this.ownerId=ownerId;
     }
 
     public String getRecipeId() {
@@ -67,6 +69,13 @@ public class Recipe {
         this.imageURL = imageURL;
     }
 
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public List<String> getComments() {
         return comments;
