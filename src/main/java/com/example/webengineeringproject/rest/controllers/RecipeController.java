@@ -27,13 +27,7 @@ public class RecipeController {
         this.recipeService = recipeService;
         this.commentService = commentService;
     }
-/*
-    @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
-        RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO);
-        return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
-    }*/
+
 
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")

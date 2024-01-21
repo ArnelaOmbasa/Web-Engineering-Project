@@ -25,9 +25,7 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-   /* public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }*/
+
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
@@ -43,9 +41,9 @@ public class JwtService {
         User user = (User) userDetails;
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId); // adding the user ID to the claims
+        claims.put("userId", userId);
         claims.put("userType", userType);
-        claims.put("username", user.getUsername()); // Username is already part of UserDetails
+        claims.put("username", user.getUsername());
 
         return generateToken(claims, userDetails);
     }

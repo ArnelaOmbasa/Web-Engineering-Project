@@ -8,9 +8,7 @@ public class CommentRequestDTO {
     public CommentRequestDTO() {
         // Default constructor
     }
-    //public CommentRequestDTO(String text) {
-       // this.text = text;
-    //}
+
 
     public String getText() {
         return text;
@@ -20,13 +18,11 @@ public class CommentRequestDTO {
         this.text = text;
     }
 
-    // Assuming there's a method in the Comment class to handle only setting text
+
     public Comment toEntity() {
         Comment comment = new Comment();
         comment.setText(this.text);
-        // The authorId and recipeId should be set elsewhere, e.g., in the service layer
-        // comment.setAuthor(authorId);
-        // comment.setRecipe(recipeId);
+
         return comment;
     }
 }

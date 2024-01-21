@@ -1,7 +1,6 @@
 package com.example.webengineeringproject.core.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class Recipe {
     private String imageURL;
     private String ownerId;
 
-    private List<String> comments = new ArrayList<String>();
+    private List<String> comments = new ArrayList<>();
 
 
     public Recipe() {

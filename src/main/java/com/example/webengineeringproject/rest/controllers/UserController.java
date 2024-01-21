@@ -30,19 +30,6 @@ public class UserController {
         this.authService = authService;
     }
 
-
-
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> register(@RequestBody UserRequestDTO user) {
-        return ResponseEntity.ok(userService.register(user));
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> login(@RequestParam String username, @RequestParam String password) {
-        return ResponseEntity.ok(userService.login(username, password));
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<UserDTO>> getAllUsers() {

@@ -5,7 +5,6 @@ import com.example.webengineeringproject.core.model.Comment;
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.repository.CommentRepository;
 import com.example.webengineeringproject.core.repository.RecipeRepository;
-import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.CommentRequestDTO;
 import com.example.webengineeringproject.rest.dto.CommentsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +50,6 @@ public class CommentService {
         return new CommentsDTO(comment.get());
     }
 
-    /*public CommentDTO createComment(Comment comment) {
-        Comment savedComment = commentRepository.save(comment);
-        return new CommentDTO(savedComment);
-    }*/
     public CommentsDTO updateComment(String commentId, String recipeId, Comment updatedComment) {
         Optional<Comment> existingComment = commentRepository.findById(commentId);
         if (existingComment.isEmpty()) {
@@ -64,7 +59,6 @@ public class CommentService {
         Comment commentToUpdate = existingComment.get();
         String oldCommentText = commentToUpdate.getText();
 
-        // Update the comment text
         commentToUpdate.setText(updatedComment.getText());
 
         Comment savedComment = commentRepository.save(commentToUpdate);
@@ -105,7 +99,6 @@ public class CommentService {
 
         List<Comment> comments = commentRepository.findByRecipeId(recipeId);
 
-        // Create CommentDTO objects for the comments
         List<CommentsDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : comments) {
             CommentsDTO commentDTO = new CommentsDTO();
@@ -120,55 +113,23 @@ public class CommentService {
 
 
 
-
-
-
-
-
-    /*
-    public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
-        // Retrieve the Recipe document by ID
-        Recipe recipe = recipeRepository.findById(recipeId)
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-
-        // Create a new Comment entity
-        Comment comment = new Comment();
-        comment.setText(commentRequestDTO.getText());
-        comment.setRecipe(recipeId); // Set the recipe ID
-
-        // Save the Comment entity
-        Comment savedComment = commentRepository.save(comment);
-
-        // Add the comment text to the Recipe's comments list as a string
-        recipe.getComments().add(commentRequestDTO.getText());
-
-        // Update the Recipe document
-        recipeRepository.save(recipe);
-
-        return new CommentsDTO(savedComment);
-    }*/
 public CommentsDTO addCommentToRecipe(String recipeId, CommentRequestDTO commentRequestDTO) throws ChangeSetPersister.NotFoundException {
     // Retrieve the authenticated user's id
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String authorId = authentication.getName(); // Assuming the username is the authorId
+    String authorId = authentication.getName();
 
-    // Retrieve the Recipe document by ID
     Recipe recipe = recipeRepository.findById(recipeId)
             .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
 
-    // Create a new Comment entity
     Comment comment = new Comment();
     comment.setText(commentRequestDTO.getText());
     comment.setRecipe(recipeId); // Set the recipe ID
     comment.setAuthor(authorId); // Set the author ID
 
-    // Save the Comment entity
     Comment savedComment = commentRepository.save(comment);
 
-    // Add the comment text to the Recipe's comments list as a string
     recipe.getComments().add(savedComment.getText());
 
-    // Update the Recipe document
     recipeRepository.save(recipe);
 
     return new CommentsDTO(savedComment);
