@@ -33,7 +33,7 @@ function AdminPage() {
       setSnackbarMessage('User deleted successfully');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      // Optionally, refetch users or update local state here
+      window.location.reload();
     },
     onError: (error) => {
       setSnackbarMessage(error.message || 'Error deleting user');
@@ -51,8 +51,7 @@ function AdminPage() {
       setSnackbarMessage('Recipe deleted successfully');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      // Optionally, refetch recipes or update local state here
-    },
+window.location.reload();    },
     onError: (error) => {
       setSnackbarMessage(error.message || 'Error deleting recipe');
       setSnackbarSeverity('error');
@@ -63,13 +62,13 @@ function AdminPage() {
   const handleDeleteRecipe = (recipeId: string) => {
     deleteRecipeMutation.mutate(recipeId);
   };
-  // Add the delete comment mutation
+  
   const deleteCommentMutation = useDeleteComment({
     onSuccess: () => {
       setSnackbarMessage('Comment deleted successfully');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      // Optionally, refetch comments or update local state here
+      window.location.reload();
     },
     onError: (error) => {
       setSnackbarMessage(error.message || 'Error deleting comment');
@@ -78,9 +77,7 @@ function AdminPage() {
     },
   });
 
-  // Existing handleDeleteUser and handleDeleteRecipe methods
 
-  // New handleDeleteComment method
   const handleDeleteComment = (recipeId: string, commentText: string) => {
     deleteCommentMutation.mutate({ recipeId, commentText });
   };
