@@ -1,5 +1,4 @@
-// UserRecipeList.tsx
-import React from 'react';
+
 import { Grid, CircularProgress } from '@mui/material';
 import RecipeCard from '../../components/RecipeCard';
 import useGetRecipesByAuthor from '../../hooks/useGetRecipesByAuthor';

@@ -1,4 +1,3 @@
-// hooks/useGetUserById.ts
 
 import { useQuery } from 'react-query';
 import UserService from '../services/users';

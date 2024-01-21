@@ -1,15 +1,11 @@
-// CommentsList.tsx
 import React from 'react';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, Paper } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import  {Comment } from '../../utils/types';
 
-// Update the type to match the expected prop
 type Props = {
-  comments: string[]; // If you are passing an array of strings
+  comments: string[]; 
 };
 
-// ... rest of the CommentsList component
 
 
 

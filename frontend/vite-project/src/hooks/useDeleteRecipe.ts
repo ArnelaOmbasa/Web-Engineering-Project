@@ -1,4 +1,3 @@
-// useDeleteRecipe.ts
 import { useMutation, UseMutationOptions } from 'react-query';
 import RecipeService from '../services/recipes';
 

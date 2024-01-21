@@ -1,13 +1,10 @@
-// CommentTable.tsx
-
-import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Comment } from '../../utils/types'; // Import the Comment type
+import { Comment } from '../../utils/types'; 
 
 interface CommentTableProps {
   comments: Comment[];
-  onDelete: (recipeId: string, commentText: string) => void; // Updated to match new function signature
+  onDelete: (recipeId: string, commentText: string) => void; 
 }
 
 function CommentTable(props: CommentTableProps) {

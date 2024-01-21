@@ -3,7 +3,6 @@ import { Recipe } from "../utils/types";
 import RecipeService from "../services/recipes";
 
 
-// because ts couldn't infer the type of the error
 interface ApiError {
     message: string;
 }  

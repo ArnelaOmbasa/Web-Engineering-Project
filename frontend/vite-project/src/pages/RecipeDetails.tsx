@@ -1,48 +1,35 @@
-import React from 'react';
 import { Grid, Card, Box, Typography } from '@mui/material';
 import RecipeImage from '../components/RecipeImage';
 import IngredientsList from '../components/IngredientsList';
 import CommentsList from '../components/CommentsList';
 import NewCommentForm from '../components/AddCommentForm';
 import { useParams } from 'react-router-dom';
-import useGetRecipeById from '../hooks/useGetRecipeById'; // Import your custom hook
+import useGetRecipeById from '../hooks/useGetRecipeById'; 
 
 
-type Comment = {
-  text: string;
-  // ...other properties
-};
 
 const RecipeDetailPage = () => {
-  const { recipeId } = useParams<{ recipeId?: string }>(); // Note that recipeId is optional
+  const { recipeId } = useParams<{ recipeId?: string }>(); 
   const {
     data: recipe,
     isLoading,
     isError,
-    error,
-    refetch
-  } = useGetRecipeById(recipeId!); // Using non-null assertion operator `!` since we are handling undefined case
+    error
+  } = useGetRecipeById(recipeId!); 
 
 
-  // Handle the loading state
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  // Handle the error state
   if (isError) {
     return <div>Error: {error?.message}</div>;
   }
 
-  // Handle the case when there is no recipe data
   if (!recipe) {
     return <div>Recipe not found</div>;
   }
 
-  // Function to handle new comment submission
-  const handleNewComment = (commentText: string) => {
-    // Logic to post a new comment
-  };
 
 
 

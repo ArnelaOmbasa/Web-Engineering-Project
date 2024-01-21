@@ -6,7 +6,7 @@ import { LoginFormData } from '../utils/types';
 import { decodeToken } from '../utils/jwtDecode';
 
 // helper function to decode token for userId
-const getUserIdFromToken = (token: string): string | null => { // returns userId or null
+const getUserIdFromToken = (token: string): string | null => { 
   const decodedToken = decodeToken(token);
   return decodedToken ? decodedToken.userId : null;
 };
@@ -20,7 +20,7 @@ const getUserTypeFromToken = (token: string): string | null => {
 // Helper function to get username from the token
 const getUsernameFromToken = (token: string) : string | null => {
   const decodedToken = decodeToken(token);
-  return decodedToken ? decodedToken.username : null; // Adjust based on actual token property name.
+  return decodedToken ? decodedToken.username : null; 
 };
 
 
@@ -32,13 +32,13 @@ const username = userToken ? getUsernameFromToken(userToken) : null;
 
 const initialState = {
     loading: false,
-    userInfo: null, // for user the object
+    userInfo: null, 
     userId,
     userType,
     username,
     userToken,
     error: null,
-    success: false, // for monitoring the registration process.
+    success: false, 
 }
 
 
@@ -46,17 +46,16 @@ const authSlice = createSlice({
    name: 'auth',
    initialState,
    reducers: {
-    // Logout action
     logout: (state) => {
         state.loading = false;
         state.userInfo = null;
         state.userToken = null;
         state.userId = null;
         state.userType = null;
-        state.username = null; // Reset username
+        state.username = null; 
         state.error = null;
         state.success = false;
-        localStorage.removeItem('userToken'); // Clear token from local storage
+        localStorage.removeItem('userToken'); 
     },
 },
    extraReducers: (builder) => {
@@ -83,7 +82,6 @@ const authSlice = createSlice({
 }
 
 })
-// Define and export the createAsyncThunk
 export const registerUser = createAsyncThunk(
     'auth/register',
     async (data: RegisterFormData, { rejectWithValue }) => {
@@ -110,7 +108,6 @@ export const registerUser = createAsyncThunk(
             localStorage.setItem('userToken', data.jwt)
             return data
         } catch (error: any) {
-            // return custom error message from backend if present
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)
             } else {

@@ -1,4 +1,3 @@
-// hooks/useCreateComment.js
 
 import { useMutation } from 'react-query';
 import CommentService from '../services/comments';

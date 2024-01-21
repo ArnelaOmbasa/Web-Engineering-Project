@@ -1,4 +1,3 @@
-// hooks/useCreateRecipe.js
 import { useMutation } from 'react-query';
 import RecipeService from '../services/recipes';
 import { RecipeRequestDTO } from '../utils/types';

@@ -1,4 +1,4 @@
-import RegisterForm from '../components/RegisterForm'; // Ensure this path is correct
+import RegisterForm from '../components/RegisterForm';
 import { Container, CssBaseline, Box } from '@mui/material';
 
 const RegisterPage = () => {

@@ -1,4 +1,3 @@
-// hooks/useDeleteUser.ts
 import { useMutation, UseMutationOptions } from 'react-query';
 import UserService from '../services/users';
 

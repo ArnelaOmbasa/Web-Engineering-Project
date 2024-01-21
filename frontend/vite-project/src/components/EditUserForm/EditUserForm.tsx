@@ -19,7 +19,6 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onClose }) 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Construct the update payload
     const updatePayload = {
       ...editedUser,
       // Include password only if it's been changed

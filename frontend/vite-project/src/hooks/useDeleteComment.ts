@@ -1,4 +1,3 @@
-// useDeleteComment.ts
 import { useMutation, UseMutationOptions } from 'react-query';
 import CommentService from '../services/comments';
 

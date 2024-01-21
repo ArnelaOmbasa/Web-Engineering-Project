@@ -1,5 +1,4 @@
-import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography, Container } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import { Recipe } from '../../utils/types';
 import { Link } from 'react-router-dom';
 

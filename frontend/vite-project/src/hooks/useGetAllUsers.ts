@@ -3,7 +3,6 @@ import { User} from "../utils/types";
 import UserService from "../services/users";
 
 
-// because ts couldn't infer the type of the error
 interface ApiError {
     message: string;
 }  

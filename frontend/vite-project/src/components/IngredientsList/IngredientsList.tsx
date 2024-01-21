@@ -1,4 +1,3 @@
-// IngredientsList.tsx
 import { List, ListItem, ListItemText, Typography, Paper } from '@mui/material';
 
 type Props = {

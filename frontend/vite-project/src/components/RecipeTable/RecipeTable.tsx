@@ -1,7 +1,6 @@
-import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Recipe } from '../../utils/types'; // Assuming this is the correct path to your type
+import { Recipe } from '../../utils/types'; 
 
 interface RecipeTableProps {
   recipes: Recipe[];

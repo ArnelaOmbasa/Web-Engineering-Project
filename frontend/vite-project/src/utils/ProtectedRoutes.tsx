@@ -7,7 +7,6 @@ import { Box, Typography } from '@mui/material'
 const ProtectedRoute = () => {
    const { userToken } = useSelector((state: RootState) => state.auth)
 
-   // show unauthorized screen if no user is found in redux store
    if (!userToken) {
        return (
            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: '100vh' }}>
@@ -19,7 +18,6 @@ const ProtectedRoute = () => {
        )
    }
 
-   // returns child route elements
    return <Outlet />
 }
 

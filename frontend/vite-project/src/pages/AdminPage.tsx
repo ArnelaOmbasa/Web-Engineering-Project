@@ -7,12 +7,12 @@ import RecipeTable from '../components/RecipeTable';
 import CommentTable from '../components/CommentTable';
 import UserTable from '../components/UsersTable';
 import useGetAllRecipes from '../hooks/useGetAllRecipes';
-import useGetAllComments from '../hooks/useGetAllComments'; // Import the hook for comments
-import useGetAllUsers from '../hooks/useGetAllUsers'; // Make sure to import your hook
-import useDeleteUser from '../hooks/useDeleteUser'; // Import the hook for deleting users
+import useGetAllComments from '../hooks/useGetAllComments'; 
+import useGetAllUsers from '../hooks/useGetAllUsers'; 
+import useDeleteUser from '../hooks/useDeleteUser';
 import { Snackbar, Alert } from '@mui/material';
 import useDeleteRecipe from '../hooks/useDeleteRecipe';
-import useDeleteComment from '../hooks/useDeleteComment'; // Import the hook for deleting comments
+import useDeleteComment from '../hooks/useDeleteComment'; 
 
 
 
@@ -25,8 +25,8 @@ function AdminPage() {
   const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('success');
   const [selectedContent, setSelectedContent] = useState('');
   const { data: recipes, isLoading, isError, error } = useGetAllRecipes();
-  const { data: comments, isLoading: isLoadingComments, isError: isErrorComments, error: errorComments } = useGetAllComments(); // Use the custom hook to fetch comments
-  const { data: users, isLoading: isLoadingUsers, isError: isErrorUsers, error: errorUsers } = useGetAllUsers(); // Use the custom hook to fetch users
+  const { data: comments, isLoading: isLoadingComments, isError: isErrorComments, error: errorComments } = useGetAllComments(); 
+  const { data: users, isLoading: isLoadingUsers, isError: isErrorUsers, error: errorUsers } = useGetAllUsers(); 
   
   const deleteMutation = useDeleteUser({
     onSuccess: () => {
@@ -100,13 +100,13 @@ window.location.reload();    },
   
 
   return (
-    <Box sx={{ display: 'flex', pt: '64px' /* Adjust to the height of your AppBar */ }}>
+    <Box sx={{ display: 'flex', pt: '64px'}}>
     <Drawer
       variant="permanent"
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', top: '64px' /* Adjust to the height of your AppBar */ },
+        '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', top: '64px' },
       }}
     >
         <Toolbar />
@@ -128,7 +128,7 @@ window.location.reload();    },
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, mt: '64px' /* Adjust to the height of your AppBar */ }}
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, mt: '64px'  }}
       >
         <Toolbar />
         {selectedContent === 'Recipes' && (

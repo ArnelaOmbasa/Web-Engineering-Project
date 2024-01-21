@@ -1,7 +1,6 @@
-// NewCommentForm.tsx
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
-import useCreateComment from '../../hooks/useCreateComment'; // Import the hook
+import useCreateComment from '../../hooks/useCreateComment'; 
 import { useQueryClient } from 'react-query';
 import { ApiError } from '../../hooks/useCreateComment';
 
@@ -11,8 +10,8 @@ type Props = {
 
 const NewCommentForm = ({ recipeId }: Props) => {
   const [commentText, setCommentText] = useState('');
-  const queryClient = useQueryClient(); // Get the queryClient instance
-  const createComment = useCreateComment(); // Use the hook
+  const queryClient = useQueryClient(); 
+  const createComment = useCreateComment(); 
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -20,14 +19,12 @@ const NewCommentForm = ({ recipeId }: Props) => {
       { recipeId, comment: { text: commentText } },
       {
         onSuccess: () => {
-          // Invalidate and refetch comments query
-          queryClient.invalidateQueries(['comments', recipeId]); // Make sure the key here matches the one used in your useQuery
-          setCommentText(''); // Clear the text field on successful submission
+          queryClient.invalidateQueries(['comments', recipeId]); 
+          setCommentText(''); 
           window.location.reload();
 
         },
         onError: (error) => {
-          // Error handling logic here
           console.log(error);
         },
       }

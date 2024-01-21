@@ -1,10 +1,10 @@
-import {jwtDecode} from 'jwt-decode'; // Make sure this is the default import, not { jwtDecode }
+import {jwtDecode} from 'jwt-decode'; 
 
 
 interface JwtPayload {
     userType: string;
     userId: string;
-    username: string; // Add this line if your token contains the username
+    username: string; 
     iat: number;
     exp: number;
 }

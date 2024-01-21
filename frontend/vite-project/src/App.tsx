@@ -1,5 +1,4 @@
-// App.tsx
-import React, { useState } from 'react';
+
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import LoginPage from './pages/LoginPage';

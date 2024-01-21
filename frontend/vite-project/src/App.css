@@ -1,7 +1,6 @@
-/* App.css */
 
 .title {
-  margin-bottom: 20px; /* Or however much space you want */
+  margin-bottom: 20px;
 }
 
 #root {
@@ -11,7 +10,6 @@
   text-align: center;
 }
 
-/* AppBar styling */
 .AppBar-root {
   position: fixed;
   top: 0;
@@ -20,7 +18,6 @@
   z-index: 1100;
 }
 
-/* Style for content that needs to be pushed down below AppBar */
 .root-content {
   padding-top: 64px; 
   max-width: 1280px;
@@ -28,29 +25,26 @@
   text-align: center;
   }
 
-/* AdminPage-root should not be globally applied, only in AdminPage component */
 .AdminPage-root {
   display: flex;
-  paddingTop: 64px; /* Height of AppBar */
+  padding-top: 64px;
 }
 
-/* Drawer paper adjustment */
 .MuiDrawer-paper {
-  margin-top: 64px; /* Height of AppBar */
-  height: calc(100% - 64px); /* Adjust height accordingly */
+  margin-top: 64px; 
+  height: calc(100% - 64px); 
 }
 
-/* Centering styles for main content within each page */
+
 .page-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Full height of its container */
+  height: 100%; 
 }
 
 
 
-/* Apply constraints to specific content areas */
 .content, .root-content {
   max-width: 1280px;
   margin: 0 auto;
@@ -59,10 +53,10 @@
 
 
 .Tabs-root {
-  justify-content: space-between; /* This will push your tabs to occupy all available space */
+  justify-content: space-between; 
 }
 
 .Tabs-flexContainer {
   justify-content:
-flex-end; /* Aligns the tabs (menu items) to the right */
+flex-end; 
 }

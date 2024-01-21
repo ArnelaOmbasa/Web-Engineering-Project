@@ -1,4 +1,3 @@
-// UploadRecipePage.tsx
 import React, { useState } from 'react';
 import RecipeUploadForm from '../components/RecipeUploadForm';
 import UserRecipeList from '../components/UserRecipeList';

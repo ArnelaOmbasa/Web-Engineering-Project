@@ -1,4 +1,3 @@
-// hooks/useGetRecipesByAuthor.ts
 import { useQuery } from 'react-query';
 import RecipeService from '../services/recipes';
 import { Recipe } from '../utils/types';

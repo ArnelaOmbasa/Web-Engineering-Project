@@ -1,7 +1,6 @@
-import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { User } from '../../utils/types'; // Import the User type
+import { User } from '../../utils/types'; 
 
 interface UserTableProps {
   users: User[];

@@ -1,4 +1,3 @@
-// pages/UserProfile.tsx
 import React, { useState } from 'react';
 import UserInfo from '../components/UserInfo';
 import EditUserForm from '../components/EditUserForm';
@@ -13,10 +12,8 @@ import { useSelector } from 'react-redux';
 const UserProfile = () => {
 
 
- // Get userId from the Redux store
  const userId = useSelector((state: RootState) => state.auth.userId);
   
- // If there is no userId, we can assume the user is not logged in or the token has not been decoded yet
  if (!userId) {
    return <div>Please login to view this page.</div>;
  }
@@ -61,7 +58,7 @@ const { data: user, isLoading, isError, error } = useGetUserById(userId);
   }
 
   if (isError) {
-    const apiError = error as ApiError; // Type assertion
+    const apiError = error as ApiError; 
     return <div>Error: {apiError.message}</div>;
   }
 

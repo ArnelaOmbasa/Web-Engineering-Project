@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -12,7 +11,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-// Yup schema
 const schema = yup.object({
   email: yup.string().email('Invalid email format').required('Email is required'),
   password: yup.string().required('Password is required')
@@ -29,7 +27,7 @@ const LoginForm = () => {
 
 
  useEffect(() => {
-  console.log("User Token Updated: ", userToken); // Add this line to log the userToken
+  console.log("User Token Updated: ", userToken); 
 
    if (userToken) {
      navigate('/home')
@@ -37,7 +35,7 @@ const LoginForm = () => {
  }, [navigate, userToken])
 
 
-  const dispatch = useDispatch<AppDispatch>(); // Use the custom AppDispatch type
+  const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = (data: LoginFormData) => {
     dispatch(login(data));

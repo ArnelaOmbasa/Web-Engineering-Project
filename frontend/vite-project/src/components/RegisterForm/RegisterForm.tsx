@@ -1,11 +1,10 @@
-import React from 'react';
 import { useForm, Controller, Resolver } from 'react-hook-form';
 import { TextField, Button, Paper, Container, Box, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 import * as yup from 'yup';
-import { UserRole } from '../../utils/types'; // Adjust the import path as needed
+import { UserRole } from '../../utils/types'; 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../../store/authSlice'; // Adjust the import path as needed
+import { registerUser } from '../../store/authSlice'; 
 import { RootState } from '../../store';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { RegisterFormData } from '../../utils/types';
@@ -13,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Typography } from '@mui/material';
 
-// Yup schema
 const schema = yup.object({
   username: yup.string().min(6, 'Username must be at least 6 characters long').max(20, 'Username cannot be more than 20 characters long').required('Username is required'),
   password: yup.string().min(8, 'Password must be at least 8 characters long').required('Password is required'),
@@ -27,17 +25,14 @@ const RegisterForm = () => {
   });
 
   const dispatch = useDispatch();
-  const { loading, userToken, error, success} = useSelector((state: RootState) => state.auth); // Adjust this selector based on your actual state structure
-
+  const { loading, userToken, error, success} = useSelector((state: RootState) => state.auth); 
   const onSubmit = (data: RegisterFormData) => {
-    dispatch(registerUser(data) as unknown as UnknownAction); // Call the async thunk with form data
+    dispatch(registerUser(data) as unknown as UnknownAction); 
   };
 
   const navigate = useNavigate()
 useEffect(() => {
-   // Redirect user to login page if registration was successful
    if (success) navigate('/login')
-   // Redirect authenticated user to home screen
    if (userToken) navigate('/home')
 }, [navigate, userToken, success])
 
