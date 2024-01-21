@@ -27,6 +27,7 @@ public class UserRequestDTO {
         user.setRole(role);
         return user;
     }*/
+
 public User toEntity() {
     User user = new User();
     user.setUsername(username);

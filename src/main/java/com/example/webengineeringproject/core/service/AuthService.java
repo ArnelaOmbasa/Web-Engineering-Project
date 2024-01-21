@@ -50,6 +50,7 @@ public class AuthService {
 
         return new LoginDTO(jwt);
     }
+
     public UserDTO updateUser(String userId, UserRequestDTO payload) {
         Optional<User> existingUser = userRepository.findById(userId);
         if (existingUser.isEmpty()) {
@@ -69,6 +70,12 @@ public class AuthService {
 
         updatedUser.setUserId(existingUser.get().getUserId());
         userRepository.save(updatedUser);
+
         return new UserDTO(updatedUser);
     }
+
+
+
+
+
 }
