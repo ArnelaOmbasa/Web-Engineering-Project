@@ -18,7 +18,7 @@ public class UserRequestDTO {
         this.email = user.getEmail();
         this.role = user.getRole();
     }
-/*
+
     public User toEntity() {
         User user = new User();
         user.setUsername(username);
@@ -26,8 +26,8 @@ public class UserRequestDTO {
         user.setEmail(email);
         user.setRole(role);
         return user;
-    }*/
-
+    }
+/*
 public User toEntity() {
     User user = new User();
     user.setUsername(username);
@@ -35,7 +35,7 @@ public User toEntity() {
     user.setEmail(email);
     user.setRole(role);
     return user;
-}
+}*/
 
 
 

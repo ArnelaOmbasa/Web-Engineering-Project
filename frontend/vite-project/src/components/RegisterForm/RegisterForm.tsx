@@ -11,6 +11,7 @@ import { UnknownAction } from '@reduxjs/toolkit';
 import { RegisterFormData } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Typography } from '@mui/material';
 
 // Yup schema
 const schema = yup.object({
@@ -51,6 +52,9 @@ useEffect(() => {
               Unable to register. {error}
             </div>
           )}
+            <Typography component="h1" variant="h5">
+          Sign Up
+        </Typography>
           <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
             <TextField
               label="Username"

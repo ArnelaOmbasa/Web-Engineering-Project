@@ -36,7 +36,7 @@ public class RecipeController {
     }*/
 
     @RequestMapping(method = RequestMethod.POST)
-    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> createRecipe(
             @RequestBody RecipeRequestDTO recipeRequestDTO,
             Authentication authentication) {
@@ -54,7 +54,7 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.GET)
-    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable String recipeId) {
         RecipeDTO recipe = recipeService.getRecipeById(recipeId);
         if (recipe != null) {
@@ -65,7 +65,7 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.PUT)
-   // @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable String recipeId, @RequestBody RecipeRequestDTO recipeRequestDTO) {
         RecipeDTO updatedRecipe = recipeService.updateRecipe(recipeId, recipeRequestDTO);
         if (updatedRecipe != null) {
@@ -76,14 +76,14 @@ public class RecipeController {
     }
 
     @RequestMapping(value = "/{recipeId}", method = RequestMethod.DELETE)
-   // @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId) {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/author/{username}", method = RequestMethod.GET)
-//@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<RecipeDTO>> getRecipesByAuthorUsername(@PathVariable String username) {
         List<RecipeDTO> recipes = recipeService.getRecipesByAuthorUsername(username);
         return ResponseEntity.ok(recipes);

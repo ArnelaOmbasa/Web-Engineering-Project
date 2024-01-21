@@ -28,6 +28,8 @@ function App() {
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/upload" element={<UploadRecipePage />} />
           <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
+
+         
           <Route path="/admin" element={<AdminPage />} /> 
           </Route>
         </Routes>

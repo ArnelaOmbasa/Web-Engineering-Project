@@ -19,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -31,13 +34,15 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors(withDefaults());
+
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.GET, "/recipes/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/comments/**").permitAll()
-                        .requestMatchers("/recipes/**").permitAll()
-                        .requestMatchers("/users/**").permitAll()
-                        .requestMatchers("/comments/**").permitAll()
+                        .requestMatchers("/recipes/**").authenticated()
+                        .requestMatchers("/users/**").authenticated()
+                        .requestMatchers("/comments/**").authenticated()
                         .anyRequest().permitAll())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
