@@ -9,7 +9,8 @@ type EditUserFormProps = {
 };
 
 const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onClose }) => {
-  const [editedUser, setEditedUser] = useState<User>(user);
+  // Initialize with existing user data but set password as empty
+  const [editedUser, setEditedUser] = useState<User>({ ...user, password: '' });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditedUser({ ...editedUser, [event.target.name]: event.target.value });
@@ -17,7 +18,15 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onClose }) 
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onUpdate(editedUser);
+
+    // Construct the update payload
+    const updatePayload = {
+      ...editedUser,
+      // Include password only if it's been changed
+      ...(editedUser.password && { password: editedUser.password }),
+    };
+
+    onUpdate(updatePayload);
     onClose();
   };
 
@@ -48,6 +57,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ user, onUpdate, onClose }) 
           name="password"
           value={editedUser.password}
           onChange={handleChange}
+          placeholder="Enter new password (optional)"
         />
         <TextField
           fullWidth

@@ -23,6 +23,8 @@ const NewCommentForm = ({ recipeId }: Props) => {
           // Invalidate and refetch comments query
           queryClient.invalidateQueries(['comments', recipeId]); // Make sure the key here matches the one used in your useQuery
           setCommentText(''); // Clear the text field on successful submission
+          window.location.reload();
+
         },
         onError: (error) => {
           // Error handling logic here
