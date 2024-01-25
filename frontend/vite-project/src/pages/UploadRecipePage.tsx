@@ -55,6 +55,7 @@ const UploadRecipePage = () => {
     if (reason === 'clickaway') {
       return;
     }
+    console.log(event);
     setSnackbarOpen(false);
   };
 
