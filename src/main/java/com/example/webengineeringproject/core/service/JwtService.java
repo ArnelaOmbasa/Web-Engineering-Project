@@ -1,5 +1,7 @@
 package com.example.webengineeringproject.core.service;
 
+import com.example.webengineeringproject.core.model.User;
+import com.example.webengineeringproject.core.model.enums.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -23,9 +25,7 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }
+
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
@@ -37,9 +37,21 @@ public class JwtService {
         return claimsResolvers.apply(claims);
     }
 
-    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, String userId, UserRole userType, String username) {
+        User user = (User) userDetails;
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        claims.put("userType", userType);
+        claims.put("username", user.getUsername());
+
+        return generateToken(claims, userDetails);
+    }
+
+
+    private String generateToken(Map<String, Object> claims, UserDetails userDetails) {
         return Jwts.builder()
-                .claims(extraClaims)
+                .claims(claims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))

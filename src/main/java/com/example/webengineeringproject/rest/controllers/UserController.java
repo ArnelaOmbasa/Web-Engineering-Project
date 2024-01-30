@@ -1,11 +1,12 @@
 package com.example.webengineeringproject.rest.controllers;
 
-import com.example.webengineeringproject.core.model.User;
 import com.example.webengineeringproject.core.model.enums.UserRole;
+import com.example.webengineeringproject.core.service.AuthService;
 import com.example.webengineeringproject.core.service.UserService;
 import com.example.webengineeringproject.rest.dto.UserDTO;
 import com.example.webengineeringproject.rest.dto.UserRequestDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,20 +20,14 @@ import java.util.List;
 public class UserController {
 
 
-        private final UserService userService;
+    private final UserService userService;
 
-        public UserController(UserService userService) {
-            this.userService = userService;
-        }
+    private final AuthService authService;
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> register(@RequestBody UserRequestDTO user) {
-        return ResponseEntity.ok(userService.register(user));
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> login(@RequestParam String username, @RequestParam String password) {
-        return ResponseEntity.ok(userService.login(username, password));
+    @Autowired
+    public UserController(UserService userService, AuthService authService) {
+        this.userService = userService;
+        this.authService = authService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -50,8 +45,9 @@ public class UserController {
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String userId, @RequestBody UserRequestDTO user) {
-        return ResponseEntity.ok(userService.updateUser(userId, user));
+        return ResponseEntity.ok(authService.updateUser(userId, user));
     }
+
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('ADMIN')")

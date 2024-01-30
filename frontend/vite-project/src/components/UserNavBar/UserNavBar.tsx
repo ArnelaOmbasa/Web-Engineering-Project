@@ -1,6 +1,4 @@
-// NavBar.tsx
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
 
 const UserNavBar = () => {

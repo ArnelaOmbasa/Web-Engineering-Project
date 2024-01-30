@@ -27,13 +27,7 @@ public class RecipeController {
         this.recipeService = recipeService;
         this.commentService = commentService;
     }
-/*
-    @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
-        RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO);
-        return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
-    }*/
+
 
     @RequestMapping(method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
@@ -41,13 +35,13 @@ public class RecipeController {
             @RequestBody RecipeRequestDTO recipeRequestDTO,
             Authentication authentication) {
 
-        String ownerId = authentication.getName(); // Get the owner's ID from authentication
+       String ownerId = authentication.getName(); // Get the owner's ID from authentication
         RecipeDTO createdRecipe = recipeService.createRecipe(recipeRequestDTO, ownerId);
         return new ResponseEntity<>(createdRecipe, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
         List<RecipeDTO> recipes = recipeService.getAllRecipes();
         return new ResponseEntity<>(recipes, HttpStatus.OK);
@@ -80,6 +74,13 @@ public class RecipeController {
     public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId) {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/author/{username}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    public ResponseEntity<List<RecipeDTO>> getRecipesByAuthorUsername(@PathVariable String username) {
+        List<RecipeDTO> recipes = recipeService.getRecipesByAuthorUsername(username);
+        return ResponseEntity.ok(recipes);
     }
 
 

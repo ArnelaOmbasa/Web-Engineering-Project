@@ -9,13 +9,15 @@ public class UserDTO {
     private String email;
     private UserRole role;
 
+
     public UserDTO(User user) {
         this.userId = user.getUserId();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.role = user.getRole();
-    }
 
+
+    }
     public String getUserId() {
         return userId;
     }

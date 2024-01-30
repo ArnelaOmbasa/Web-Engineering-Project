@@ -4,15 +4,14 @@ import com.example.webengineeringproject.core.exceptions.repository.ResourceNotF
 import com.example.webengineeringproject.core.model.Comment;
 import com.example.webengineeringproject.core.model.Recipe;
 import com.example.webengineeringproject.core.repository.RecipeRepository;
-import com.example.webengineeringproject.rest.dto.CommentDTO;
 import com.example.webengineeringproject.rest.dto.RecipeDTO;
 import com.example.webengineeringproject.rest.dto.RecipeRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -42,14 +41,10 @@ public class RecipeService {
         }
         return new RecipeDTO(recipe.get());
     }
-/*
-    public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO) {
-        Recipe recipe = recipeRepository.save(recipeRequestDTO.toEntity());
-        return new RecipeDTO(recipe);
-    }*/
-public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, String ownerId) {
+
+public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO,String ownerId) {
     Recipe recipe = recipeRequestDTO.toEntity();
-    recipe.setOwnerId(ownerId); // Set the owner's ID
+    recipe.setOwnerId(ownerId);
     Recipe savedRecipe = recipeRepository.save(recipe);
     return new RecipeDTO(savedRecipe);
 }
@@ -80,13 +75,9 @@ public RecipeDTO createRecipe(RecipeRequestDTO recipeRequestDTO, String ownerId)
         recipeRepository.save(recipe);
     }
 
-    public String getOwnerId(String recipeId) {
-        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
-        if (recipe.isPresent()) {
-            return recipe.get().getOwnerId();
-        } else {
-            throw new ResourceNotFoundException("Recipe not found for ID: " + recipeId);
-        }
+    public List<RecipeDTO> getRecipesByAuthorUsername(String ownerId) {
+        List<Recipe> recipes = recipeRepository.findByOwnerId(ownerId);
+        return recipes.stream().map(RecipeDTO::new).collect(Collectors.toList());
     }
 
 

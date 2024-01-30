@@ -1,5 +1,3 @@
-// RecipeImage.tsx
-import React from 'react';
 import { CardMedia } from '@mui/material';
 
 type Props = {
@@ -12,7 +10,7 @@ const RecipeImage = ({ imageUrl, title }: Props) => (
     component="img"
     image={imageUrl}
     alt={title}
-    sx={{ width: '100%', height: 'auto', maxHeight: 1000, objectFit: 'cover' }} // Adjust the style here
+    sx={{ width: '100%', height: 'auto', maxHeight: 1000, objectFit: 'cover' }} 
   />
 );
 

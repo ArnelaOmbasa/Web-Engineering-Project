@@ -1,6 +1,6 @@
-// RecipeUploadForm.tsx
-import React, { useState } from 'react';
+
 import { Modal, Box, Typography, TextField, Button } from '@mui/material';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -16,7 +16,7 @@ const style = {
 type RecipeUploadFormProps = {
   open: boolean;
   onClose: () => void;
-  onUpload: (title: string, description: string, ingredients: string[], imageURL: string) => void;
+  onUpload: (title: string, description: string, ingredients: string, imageURL: string) => void;
 };
 
 const RecipeUploadForm = ({ open, onClose, onUpload }: RecipeUploadFormProps) => {
@@ -26,10 +26,9 @@ const RecipeUploadForm = ({ open, onClose, onUpload }: RecipeUploadFormProps) =>
   const [imageURL, setImageURL] = useState('');
 
   const handleSubmit = () => {
-    // Here, split the ingredients string into an array
-    const ingredientsArray = ingredients.split(',').map(item => item.trim());
-    onUpload(title, description, ingredientsArray, imageURL);
-    onClose(); // Close the modal after submission
+    
+    onUpload(title, description, ingredients, imageURL);
+    onClose(); 
   };
 
   return (

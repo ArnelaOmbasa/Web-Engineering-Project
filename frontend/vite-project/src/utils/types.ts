@@ -4,22 +4,49 @@ export type Recipe = {
     description: string;
     ingredients: string[];
     imageURL: string;
-    author: string;
-    comments: Comment[];
+    ownerId: string;
+    comments: string[];
   }
-
   export type Comment = {
-    id: string;
+    commentId: string;
     text: string;
-   
-  };
-
-  export type User = {
-    username: string;
-    email: string;
-    password: string;
-    role: string;
-    recipes?: Recipe[]; 
+    authorId: string;
+    recipeId: string;
   };
   
+
+  export type UserRole = 'ADMIN' | 'USER';
+
+  export type User = {
+    userId: string;
+    username: string;
+    email: string;
+    role: UserRole;
+    password: string;
+  };
+
+  export type CommentRequestDTO = {
+    text: string;
+  };
+
+  export type RecipeRequestDTO = {
+    title: string;
+    description: string;
+    ingredients: string[];
+    imageURL: string;
+    ownerId: string;
+  }
+  
+  export type RegisterFormData = {
+    username: string;
+    password: string;
+    email: string;
+    role: UserRole;
+  };
+  
+export type LoginFormData = {
+  email: string;
+  password: string;
+};
+
   

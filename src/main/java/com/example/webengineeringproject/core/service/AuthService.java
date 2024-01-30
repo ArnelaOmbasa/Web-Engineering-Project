@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AuthService {
     private final UserRepository userRepository;
@@ -44,8 +46,36 @@ public class AuthService {
         );
         User user = userRepository.findByEmail(loginRequestDTO.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("This user does not exist."));
-        String jwt = jwtService.generateToken(user);
+        String jwt = jwtService.generateToken(user,user.getUserId(),user.getRole(),user.getUsername());
 
         return new LoginDTO(jwt);
     }
+
+    public UserDTO updateUser(String userId, UserRequestDTO payload) {
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isEmpty()) {
+            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+        }
+
+        User updatedUser = payload.toEntity();
+        // Check if the password was provided in the update request
+        if (payload.getPassword() != null && !payload.getPassword().isEmpty()) {
+            // Hash the new password before saving
+            String hashedPassword = passwordEncoder.encode(payload.getPassword());
+            updatedUser.setPassword(hashedPassword);
+        } else {
+            // Keep the old password if no new password is provided
+            updatedUser.setPassword(existingUser.get().getPassword());
+        }
+
+        updatedUser.setUserId(existingUser.get().getUserId());
+        userRepository.save(updatedUser);
+
+        return new UserDTO(updatedUser);
+    }
+
+
+
+
+
 }

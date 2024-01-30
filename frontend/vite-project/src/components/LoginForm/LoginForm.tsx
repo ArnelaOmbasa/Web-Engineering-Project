@@ -1,21 +1,44 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { TextField, Button, Paper, Grid, Typography, Container } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { TextField, Button, Paper, Typography, Container } from '@mui/material';
+import { LoginFormData } from '../../utils/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { login } from '../../store/authSlice';
+import { AppDispatch } from '../../store'; 
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-const StyledPaper = styled(Paper)`
-  padding: 20px;
-  margin-top: 50px;
-`;
+const schema = yup.object({
+  email: yup.string().email('Invalid email format').required('Email is required'),
+  password: yup.string().required('Password is required')
+}).required();
+
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+    resolver: yupResolver(schema)
+  });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Handle login logic here
-    console.log('Email:', email, 'Password:', password);
-    // Typically, you would send a request to your server here
+  const { loading, userToken, error } = useSelector((state: RootState) => state.auth);
+
+  const navigate = useNavigate()
+
+
+ useEffect(() => {
+  console.log("User Token Updated: ", userToken); 
+
+   if (userToken) {
+     navigate('/home')
+   }
+ }, [navigate, userToken])
+
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSubmit = (data: LoginFormData) => {
+    dispatch(login(data));
   };
 
   return (
@@ -24,39 +47,44 @@ const LoginForm = () => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              <h4 className="alert-heading">Unable to log in!</h4>
+              <p>{error}</p>
+              <hr />
+              <p className="mb-0">Something went wrong, please try again.</p>
+            </div>
+          )}
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
-            id="email"
-            label="email"
-            name="email"
+            label="Email Address"
             autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            error={Boolean(errors.email)}
+            helperText={errors.email?.message}
+            {...register('email')}
           />
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
-            name="password"
             label="Password"
             type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            error={Boolean(errors.password)}
+            helperText={errors.password?.message}
+            {...register('password')}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            style={{ marginTop: 20, marginBottom: 20 }}
+            sx={{ mt: 3, mb: 2 }}
+            disabled={loading}
           >
-            Sign In
+            {loading ? 'Submitting...' : 'Sign In'}
           </Button>
         </form>
       </Paper>

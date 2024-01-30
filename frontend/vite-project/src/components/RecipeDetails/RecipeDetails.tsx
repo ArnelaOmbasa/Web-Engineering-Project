@@ -1,17 +1,19 @@
-// RecipeDetails.tsx
-import React from 'react';
-import { Typography, Box } from '@mui/material';
+import { Typography, Paper } from '@mui/material';
 
 type Props = {
-  title: string;
-  description: string;
+title: string;
+description: string;
 };
 
 const RecipeDetails = ({ title, description }: Props) => (
-  <Box sx={{ padding: 2 }}>
-    <Typography variant="h4" gutterBottom>{title}</Typography>
-    <Typography variant="body1">{description}</Typography>
-  </Box>
+<Paper elevation={1} style={{ padding: '20px', marginBottom: '20px' }}>
+<Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
+{title}
+</Typography>
+<Typography variant="body1" component="p" sx={{ fontSize: '1rem' }}>
+{description}
+</Typography>
+</Paper>
 );
 
 export default RecipeDetails;

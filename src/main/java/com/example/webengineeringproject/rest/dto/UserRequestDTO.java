@@ -9,6 +9,7 @@ public class UserRequestDTO {
     private String email;
     private UserRole role;
 
+
     public UserRequestDTO() { }
 
     public UserRequestDTO(User user) {
@@ -26,6 +27,16 @@ public class UserRequestDTO {
         user.setRole(role);
         return user;
     }
+/*
+public User toEntity() {
+    User user = new User();
+    user.setUsername(username);
+    // Remove the direct password setting
+    user.setEmail(email);
+    user.setRole(role);
+    return user;
+}*/
+
 
 
     public String getUsername() {
@@ -59,4 +70,8 @@ public class UserRequestDTO {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+
+
+
 }
